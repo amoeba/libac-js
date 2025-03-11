@@ -63,17 +63,24 @@ const exportIcons = function (portal_path: string, files: DatFile[], path: strin
       let ig = i * 4 + 2;
       let ia = i * 4 + 3;
 
+      let nr = i * 4 + 1;
+      let nb = i * 4 + 2
+      let ng = i * 4 + 3;
+      let na = i;
+
       console.log({
         ir, ig, ib, ia
       })
 
+      let olda = rawBuffer[ia];
       let oldr = rawBuffer[ir];
-      let oldb = rawBuffer[ib];
       let oldg = rawBuffer[ig];
+      let oldb = rawBuffer[ib];
 
-      rawBuffer[ir] = oldr;
-      rawBuffer[ib] = oldg;
-      rawBuffer[ig] = oldb;
+      rawBuffer[na] = olda;
+      rawBuffer[nr] = oldr;
+      rawBuffer[ng] = oldg;
+      rawBuffer[nb] = oldb;
     }
 
     sharp(rawBuffer, {
