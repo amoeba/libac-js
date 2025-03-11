@@ -1,11 +1,12 @@
 import fs from 'fs';
-import path from 'path';
 
 import { DatDatabase } from "./dat/DatDatabase";
 import { Texture } from "./dat/Texture";
 import SeekableFileReader from "./seekable_file_reader";
 import { DatFileType } from "./dat/DatFileType";
 import { DatFile } from "./dat/DatFile";
+import sharp from 'sharp';
+import BinaryReader from './binary_reader';
 
 const exportIcons = function (portal_path: string, files: DatFile[], path: string) {
   if (!fs.existsSync(`./${path}`)) {
@@ -15,13 +16,73 @@ const exportIcons = function (portal_path: string, files: DatFile[], path: strin
   for (let i = 0; i < files.length; i++) {
     let file = files[i];
 
-    if (file.type() != DatFileType.Texture) {
+
+    if (!file.ObjectId) {
+      throw new Error("file had missing object id");
+    }
+
+    if (file.type() != DatFileType.Texture && file.FileSize != 4120) {
+      continue;
+    }
+
+
+    // Skip icons we don't want
+
+    let id_short = file.ObjectId - 0x6000000;
+
+    if (id_short != 4173) {
       continue;
     }
 
     let file_reader = new SeekableFileReader(portal_path, file.FileOffset);
     let icon = new Texture();
     icon.unpack(file_reader);
+
+    console.log(`"Form is ${icon.form}`);
+
+    if (icon.form == 10) {
+      console.log("RGB");
+    } else if (icon.form == 6) {
+      console.log("RGBA");
+    } else {
+      throw new Error("TODO");
+    }
+
+    if (!icon.width || !icon.height || !icon.buffer) {
+      throw new Error("TODO")
+    }
+
+    let npixels = icon.width * icon.height;
+
+    let rawBuffer = Buffer.from(icon.buffer)
+
+    for (let i = 0; i < npixels / 4; i++) {
+
+      let ir = i * 4;
+      let ib = i * 4 + 1
+      let ig = i * 4 + 2;
+      let ia = i * 4 + 3;
+
+      console.log({
+        ir, ig, ib, ia
+      })
+
+      let oldr = rawBuffer[ir];
+      let oldb = rawBuffer[ib];
+      let oldg = rawBuffer[ig];
+
+      rawBuffer[ir] = oldr;
+      rawBuffer[ib] = oldg;
+      rawBuffer[ig] = oldb;
+    }
+
+    sharp(rawBuffer, {
+      raw: {
+        width: icon.width,
+        height: icon.height,
+        channels: 4,
+      }
+    }).png().toFile(`./${path}/${id_short}.png`);
   }
 }
 
@@ -40,7 +101,7 @@ const createCloudflareIndex = function (files: DatFile[]) {
     let id = file.ObjectId;
     let id_short = file.ObjectId - 0x6000000;
 
-    console.log(`insert into files (id, id_short, offset, size, dat_type) values (${id}, ${id_short}, ${file.FileOffset}, 4120, 0);`);
+    console.log(`insert into files(id, id_short, offset, size, dat_type) values(${id}, ${id_short}, ${file.FileOffset}, 4120, 0); `);
   }
 }
 
@@ -62,9 +123,14 @@ const main = function () {
 
   const db = new DatDatabase(portal_path);
   db.read();
+
   let files: DatFile[] = [];
   db.rootDir?.files(files);
+
+  exportIcons(portal_path, files, "export");
+
   db.close();
+
 }
 
 main();
