@@ -7,6 +7,8 @@ import { DatFileType } from "./dat/DatFileType";
 import { DatFile } from "./dat/DatFile";
 import sharp from 'sharp';
 import BinaryReader from './binary_reader';
+import { DatReader } from './dat/DatReader';
+import { SpellTable } from './dat/SpellTable';
 
 const exportIcons = function (portal_path: string, files: DatFile[], path: string) {
   if (!fs.existsSync(`./${path}`)) {
@@ -30,10 +32,11 @@ const exportIcons = function (portal_path: string, files: DatFile[], path: strin
 
     let id_short = file.ObjectId - 0x6000000;
 
-    if (id_short != 4173) {
+    if (id_short != 0x0F5A) {
       continue;
     }
 
+    console.log(file.FileOffset);
     let file_reader = new SeekableFileReader(portal_path, file.FileOffset);
     let icon = new Texture();
     icon.unpack(file_reader);
@@ -134,7 +137,24 @@ const main = function () {
   let files: DatFile[] = [];
   db.rootDir?.files(files);
 
-  exportIcons(portal_path, files, "export");
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
+
+    // console.log("file.type_name());
+
+    if (file.type() == DatFileType.SpellTable) {
+      console.log("spell table:: ", { file });
+
+      let file_reader = new SeekableFileReader(portal_path, file.FileOffset);
+      let spell_table = new SpellTable();
+      spell_table.unpack(file_reader);
+
+      console.log(spell_table);
+
+      break;
+    }
+
+  }
 
   db.close();
 

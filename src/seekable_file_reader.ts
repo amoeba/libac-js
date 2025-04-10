@@ -111,8 +111,42 @@ export default class SeekableFileReader {
     return out;
   }
 
+  ReadSingle(): number {
+    const buf = this.read(4);
+    const view = new DataView(buf.buffer);
+
+    return view.getFloat32(0, true);
+  }
+
+  ReadDouble(): number {
+    const buf = this.read(8);
+    const view = new DataView(buf.buffer);
+
+    return view.getFloat64(0, true);
+  }
+
   // TODO
   ReadString(): string {
     return "TODO";
+  }
+
+  AlignBoundary() {
+    let alignDelta = this.position % 4;
+
+    if (alignDelta != 0) {
+      this.position += (4 - alignDelta);
+    }
+  }
+
+  ReadObfuscatedString(): string {
+    let stringlength = this.ReadUint16();
+    let tokens = this.ReadUint8Array(stringlength);
+
+    for (var i = 0; i < stringlength; i++)
+      // flip the bytes in the string to undo the obfuscation: i.e. 0xAB => 0xBA
+      tokens[i] = ((tokens[i] >> 4) | (tokens[i] << 4));
+
+    const decoder = new TextDecoder('windows-1252');
+    return decoder.decode(tokens);
   }
 }
