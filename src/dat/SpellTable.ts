@@ -1,3 +1,4 @@
+import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
 import { unpackPackedHashTable } from "./PackedHashTable";
 import { SpellBase } from "./SpellBase";
@@ -11,7 +12,7 @@ export class SpellTable {
   spells: NumberDict<SpellBase> | undefined
   spell_set: NumberDict<SpellTable> | undefined
 
-  unpack(reader: SeekableFileReader) {
+  unpack(reader: BinaryReader) {
     this.id = reader.ReadUint32();
 
     this.spells = unpackPackedHashTable<SpellBase>(reader, SpellBase);

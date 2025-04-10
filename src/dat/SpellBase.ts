@@ -1,3 +1,4 @@
+import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
 import { SpellTable } from "./SpellTable";
 
@@ -793,7 +794,7 @@ export class SpellBase {
   non_component_target_type: number | undefined
   mana_mod: number | undefined
 
-  unpack(reader: SeekableFileReader) {
+  unpack(reader: BinaryReader) {
     this.name = reader.ReadObfuscatedString();
     reader.AlignBoundary();
     this.description = reader.ReadObfuscatedString();

@@ -1,8 +1,8 @@
-import SeekableFileReader from "../seekable_file_reader"
+import BinaryReader from "../binary_reader";
 import { NumberDict } from "./SpellTable";
 import { Unpackable } from "./Unpackable";
 
-export const unpackPackedHashTable = function <T extends Unpackable>(reader: SeekableFileReader, constructor: new () => T): NumberDict<T> {
+export const unpackPackedHashTable = function <T extends Unpackable>(reader: BinaryReader, constructor: new () => T): NumberDict<T> {
   let result: NumberDict<T> = {};
 
   let total_objects = reader.ReadUint16();
@@ -14,6 +14,9 @@ export const unpackPackedHashTable = function <T extends Unpackable>(reader: See
     var item = new constructor();
     item.unpack(reader);
     result[key] = item;
+
+    console.log("done with one, breaking");
+    break;
   }
 
   return result;

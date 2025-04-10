@@ -52,6 +52,20 @@ export default class BinaryReader {
     return view.getUint32(0, true);
   }
 
+  ReadSingle(): number {
+    let view = new DataView(this.buffer, this.position);
+    this.position += 4;
+
+    return view.getFloat32(0, true);
+  }
+
+  ReadDouble(): number {
+    let view = new DataView(this.buffer, this.position);
+    this.position += 8;
+
+    return view.getFloat64(0, true);
+  }
+
   ReadUint8Array(length: number): Uint32Array {
     const buf = this.read(length);
     const out = new Uint32Array(buf);
@@ -71,5 +85,25 @@ export default class BinaryReader {
     const out = new Uint32Array(buf);
 
     return out;
+  }
+
+  AlignBoundary() {
+    let alignDelta = this.position % 4;
+
+    if (alignDelta != 0) {
+      this.position += (4 - alignDelta);
+    }
+  }
+
+  ReadObfuscatedString(): string {
+    let stringlength = this.ReadUint16();
+    let tokens = this.ReadUint8Array(stringlength);
+
+    for (var i = 0; i < stringlength; i++)
+      // flip the bytes in the string to undo the obfuscation: i.e. 0xAB => 0xBA
+      tokens[i] = ((tokens[i] >> 4) | (tokens[i] << 4));
+
+    const decoder = new TextDecoder('windows-1252');
+    return decoder.decode(tokens);
   }
 }

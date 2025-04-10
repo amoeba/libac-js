@@ -143,11 +143,21 @@ const main = function () {
     // console.log("file.type_name());
 
     if (file.type() == DatFileType.SpellTable) {
-      console.log("spell table:: ", { file });
+      console.log("got a spell table:: ", { file });
 
+      // Step 1: Open the file at the right offset
       let file_reader = new SeekableFileReader(portal_path, file.FileOffset);
+
+      // Step 2: Read the file in its entirety using DatReader
+      let dat_reader = new DatReader(file_reader);
+      let f = dat_reader.read(file.FileOffset || 0, file.FileSize || 0, db.header?.BlockSize || 0);
+
+      // Step 3: Create a BinaryReader from the file buffer
+      let reader = new BinaryReader(f.buffer);
+
+      // Step 4: Unpack the data into a SpellTable
       let spell_table = new SpellTable();
-      spell_table.unpack(file_reader);
+      spell_table.unpack(reader);
 
       console.log(spell_table);
 

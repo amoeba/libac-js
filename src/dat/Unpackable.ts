@@ -1,5 +1,5 @@
-import SeekableFileReader from "../seekable_file_reader";
+import BinaryReader from "../binary_reader";
 
 export interface Unpackable {
-  unpack(reader: SeekableFileReader): void;
+  unpack(reader: BinaryReader): void;
 }
