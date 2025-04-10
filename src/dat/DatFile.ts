@@ -1,5 +1,5 @@
 import BinaryReader from "../binary_reader"
-import { DatFileType } from "./DatFileType"
+import { DatFileType, getFileType, getFileTypeName } from "./DatFileType"
 
 export class DatFile {
   BitFlags: number | undefined
@@ -19,14 +19,10 @@ export class DatFile {
   }
 
   type(): DatFileType {
-    if (!this.ObjectId) {
-      return DatFileType.Unknown
-    }
+    return getFileType(this.ObjectId || 0);
+  }
 
-    if (this.ObjectId >= 0x06000000 && this.ObjectId <= 0x07FFFFFF) {
-      return DatFileType.Texture
-    } else {
-      return DatFileType.Unknown
-    }
+  type_name(): string {
+    return getFileTypeName(this.type());
   }
 }
