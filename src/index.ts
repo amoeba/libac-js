@@ -116,8 +116,8 @@ const createCloudflareIndex = function (files: DatFile[]) {
 }
 
 const main = function () {
-  const portal_path = "/Users/bryce/src/ACEmulator/ACE/Dats/client_portal.dat";
-  const cell_path = "/Users/bryce/src/ACEmulator/ACE/Dats/client_cell_1.dat";
+  const portal_path = "../ACEmulator/ACE/Dats/client_portal.dat";
+  const cell_path = "../ACEmulator/ACE/Dats/client_cell_1.dat";
 
   if (!fs.existsSync(portal_path)) {
     console.log(`portal doesn't exist at ${portal_path}, exiting`);
