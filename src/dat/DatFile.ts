@@ -1,6 +1,6 @@
 import BinaryReader from "../binary_reader"
 import { DatFileType, getFileType, getFileTypeName } from "./DatFileType"
-import { Unpackable } from "./Unpackable"
+import { Unpackable } from "../Unpackable"
 
 export class DatFile implements Unpackable {
   BitFlags: number | undefined

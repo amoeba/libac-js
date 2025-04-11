@@ -1,7 +1,7 @@
 import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
 import { SpellTable } from "./SpellTable";
-import { Unpackable } from "./Unpackable";
+import { Unpackable } from "../Unpackable";
 
 const HIGHEST_COMP_ID = 198;
 

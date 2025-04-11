@@ -1,5 +1,5 @@
 import BinaryReader from "../binary_reader";
-import { Unpackable } from "./Unpackable";
+import { Unpackable } from "../Unpackable";
 import { unpackInt32Array } from "./unpackables";
 
 export class SpellSetTiers implements Unpackable {

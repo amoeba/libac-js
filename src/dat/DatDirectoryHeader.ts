@@ -1,6 +1,6 @@
 import BinaryReader from "../binary_reader"
 import { DatFile } from "./DatFile"
-import { Unpackable } from "./Unpackable"
+import { Unpackable } from "../Unpackable"
 
 export class DatDirectoryHeader implements Unpackable {
   branches: Uint32Array

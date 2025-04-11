@@ -1,6 +1,6 @@
 import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
-import { Unpackable } from "./Unpackable";
+import { Unpackable } from "../Unpackable";
 
 export class Texture implements Unpackable {
   form: number | undefined
