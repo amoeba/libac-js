@@ -8,10 +8,9 @@ export default class BinaryReader {
   }
 
   read(length: number): ArrayBufferLike {
-    let view = new DataView(this.buffer, this.position, length);
+    const start = this.position;
     this.position += length;
-
-    return view.buffer;
+    return this.buffer.slice(start, this.position);
   }
 
   ReadInt8(): number {
@@ -66,16 +65,16 @@ export default class BinaryReader {
     return view.getFloat64(0, true);
   }
 
-  ReadUint8Array(length: number): Uint32Array {
+  ReadUint8Array(length: number): Uint8Array {
     const buf = this.read(length);
-    const out = new Uint32Array(buf);
+    const out = new Uint8Array(buf);
 
     return out;
   }
 
-  ReadUint16Array(length: number): Uint32Array {
+  ReadUint16Array(length: number): Uint16Array {
     const buf = this.read(length * 2);
-    const out = new Uint32Array(buf);
+    const out = new Uint16Array(buf);
 
     return out;
   }
