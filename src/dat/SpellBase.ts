@@ -1,6 +1,7 @@
 import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
 import { SpellTable } from "./SpellTable";
+import { Unpackable } from "./Unpackable";
 
 const HIGHEST_COMP_ID = 198;
 
@@ -764,7 +765,7 @@ enum MagicSchool {
   VoidMagic = 5,
 }
 
-export class SpellBase {
+export class SpellBase implements Unpackable {
   name: string | undefined
   description: string | undefined
   school: MagicSchool | undefined

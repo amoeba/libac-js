@@ -1,6 +1,8 @@
+import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
+import { Unpackable } from "./Unpackable";
 
-export class Texture {
+export class Texture implements Unpackable {
   form: number | undefined
   width: number | undefined
   height: number | undefined
@@ -8,7 +10,7 @@ export class Texture {
   length: number | undefined
   buffer: Buffer | undefined
 
-  unpack(reader: SeekableFileReader) {
+  unpack(reader: BinaryReader) {
     // ID?
     reader.ReadUint32();
 

@@ -3,12 +3,13 @@ import SeekableFileReader from "../seekable_file_reader";
 import { unpackPackedHashTable } from "./PackedHashTable";
 import { SpellBase } from "./SpellBase";
 import { SpellSet } from "./SpellSet";
+import { Unpackable } from "./Unpackable";
 
 export interface NumberDict<T> {
   [key: number]: T
 }
 
-export class SpellTable {
+export class SpellTable implements Unpackable {
   id: number | undefined
   spells: NumberDict<SpellBase> | undefined
   spell_set: NumberDict<SpellSet> | undefined

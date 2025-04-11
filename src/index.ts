@@ -36,10 +36,11 @@ const exportIcons = function (portal_path: string, files: DatFile[], path: strin
       continue;
     }
 
+    // This isn't right but I'm leaving it here
     console.log(file.FileOffset);
     let file_reader = new SeekableFileReader(portal_path, file.FileOffset);
     let icon = new Texture();
-    icon.unpack(file_reader);
+    // icon.unpack(file_reader);
 
     console.log(`"Form is ${icon.form}`);
 
