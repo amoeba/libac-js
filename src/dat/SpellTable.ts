@@ -2,6 +2,7 @@ import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
 import { unpackPackedHashTable } from "./PackedHashTable";
 import { SpellBase } from "./SpellBase";
+import { SpellSet } from "./SpellSet";
 
 export interface NumberDict<T> {
   [key: number]: T
@@ -10,13 +11,13 @@ export interface NumberDict<T> {
 export class SpellTable {
   id: number | undefined
   spells: NumberDict<SpellBase> | undefined
-  spell_set: NumberDict<SpellTable> | undefined
+  spell_set: NumberDict<SpellSet> | undefined
 
   unpack(reader: BinaryReader) {
     this.id = reader.ReadUint32();
 
     this.spells = unpackPackedHashTable<SpellBase>(reader, SpellBase);
-    // this.spell_set: TODO
+    this.spell_set = unpackPackedHashTable<SpellSet>(reader, SpellSet);
   }
 
   static compute_hash(input: string): number {

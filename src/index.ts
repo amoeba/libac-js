@@ -159,7 +159,41 @@ const main = function () {
       let spell_table = new SpellTable();
       spell_table.unpack(reader);
 
-      console.log(spell_table);
+      if (spell_table.spell_set) {
+        console.log("Printing spell table...")
+
+        for (const spell_set_id in spell_table.spell_set) {
+          console.log("printing spell set id", spell_set_id);
+
+          const spell_set = spell_table.spell_set[spell_set_id];
+
+          for (const tier in spell_set.tiers) {
+            const tier_obj = spell_set.tiers[parseInt(tier)];
+
+            if (spell_table.spells) {
+              for (const spell_id in tier_obj.spells) {
+                const spell = spell_table.spells[parseInt(spell_id)];
+                if (!spell) {
+                  console.log("spell", spell_id, "is null?", { spell });
+                  continue;
+                }
+                console.log(spell.name);
+              }
+            }
+
+            break;
+          }
+
+          break;
+        }
+
+        // console.log(JSON.stringify(spell_table.spell_set['1']));
+      }
+
+      // if (spell_table.spells) {
+      //   console.log(JSON.stringify(spell_table.spells['2081']));
+      //   console.log(JSON.stringify(spell_table.spells['1375']));
+      // }
 
     }
 
