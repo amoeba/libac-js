@@ -1,5 +1,5 @@
 import BinaryReader from "../binary_reader";
-import { unpackPackedHashTable } from "./PackedHashTable";
+import { unpackPackedHashTable } from "../PackedHashTable";
 import { SpellSetTiers } from "./SpellSetTiers";
 import { NumberDict } from "./SpellTable";
 import { Unpackable } from "../Unpackable";

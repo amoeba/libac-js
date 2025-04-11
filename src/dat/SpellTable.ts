@@ -1,6 +1,6 @@
 import BinaryReader from "../binary_reader";
 import SeekableFileReader from "../seekable_file_reader";
-import { unpackPackedHashTable } from "./PackedHashTable";
+import { unpackPackedHashTable } from "../PackedHashTable";
 import { SpellBase } from "./SpellBase";
 import { SpellSet } from "./SpellSet";
 import { Unpackable } from "../Unpackable";
