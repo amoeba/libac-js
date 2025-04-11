@@ -1,4 +1,4 @@
-import BinaryReader from "../binary_reader";
+import BinaryReader from "./binary_reader";
 
 // Int32 for length, UInt32 for each element
 export const unpackInt32Array = function (reader: BinaryReader): number[] {
