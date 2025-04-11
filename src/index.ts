@@ -161,7 +161,6 @@ const main = function () {
 
       console.log(spell_table);
 
-      break;
     }
 
   }

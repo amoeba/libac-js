@@ -14,9 +14,6 @@ export const unpackPackedHashTable = function <T extends Unpackable>(reader: Bin
     var item = new constructor();
     item.unpack(reader);
     result[key] = item;
-
-    console.log("done with one, breaking");
-    break;
   }
 
   return result;

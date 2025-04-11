@@ -825,15 +825,15 @@ export class SpellBase {
         break;
     }
 
-    // Components : Load them first, then decrypt them. More efficient to hash all at once.
     let rawComps: number[] = [];
 
     for (let j = 0; j < 8; j++) {
       let comp = reader.ReadUint32();
 
-      // We will only add the comp if it is valid
-      if (comp > 0)
+      // ACE only adds under this condition so we do it too:
+      if (comp > 0) {
         rawComps.push(comp);
+      }
     }
 
     // Get the decryped component values
@@ -860,15 +860,13 @@ export class SpellBase {
     for (let i = 0; i < raw_comps.length; i++) {
       let comp = (raw_comps[i] - key);
 
-      if (comp > HIGHEST_COMP_ID)
+      if (comp > HIGHEST_COMP_ID) {
         comp = comp & 0xFF;
+      }
 
       comps.push(comp);
     }
 
     return comps;
-
-    return [];
-
   }
 }
