@@ -1,4 +1,4 @@
-import SeekableFileReader from "../seekable_file_reader";
+import SeekableFileReader from "../SeekableFileReader";
 
 export class DatReader {
   reader: SeekableFileReader

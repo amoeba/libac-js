@@ -1,5 +1,5 @@
-import BinaryReader from "./binary_reader";
-import SeekableFileReader from "./seekable_file_reader";
+import BinaryReader from "./BinaryReader";
+import SeekableFileReader from "./SeekableFileReader";
 
 const fs = require('fs');
 

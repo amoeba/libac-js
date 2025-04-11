@@ -1,4 +1,4 @@
-import BinaryReader from "../binary_reader"
+import BinaryReader from "../BinaryReader"
 import { DatFileType, getFileType, getFileTypeName } from "./DatFileType"
 import { Unpackable } from "../Unpackable"
 

@@ -1,14 +1,14 @@
 import fs from 'fs';
 
 import { DatDatabase } from "./dat/DatDatabase";
-import { Texture } from "./dat/Texture";
-import SeekableFileReader from "./seekable_file_reader";
+import { Texture } from "./dat/file_types/Texture";
+import SeekableFileReader from "./SeekableFileReader";
 import { DatFileType } from "./dat/DatFileType";
 import { DatFile } from "./dat/DatFile";
 import sharp from 'sharp';
-import BinaryReader from './binary_reader';
+import BinaryReader from './BinaryReader';
 import { DatReader } from './dat/DatReader';
-import { SpellTable } from './dat/SpellTable';
+import { SpellTable } from './dat/file_types/SpellTable';
 
 const exportIcons = function (portal_path: string, files: DatFile[], path: string) {
   if (!fs.existsSync(`./${path}`)) {
