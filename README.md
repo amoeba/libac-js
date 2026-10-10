@@ -8,7 +8,7 @@ parsing.
 ## Installation
 
 ```sh
-npm install libac
+npm install @amoeba/libac
 ```
 
 Requires Node.js 18 or newer.
@@ -16,7 +16,7 @@ Requires Node.js 18 or newer.
 ## Usage
 
 ```ts
-import { GfxObj, Setup, extractBoundary, parseMultipartMixed } from "libac";
+import { GfxObj, Setup, extractBoundary, parseMultipartMixed } from "@amoeba/libac";
 
 const setup = Setup.fromBuffer(setupBytes);
 const gfxObj = GfxObj.fromBuffer(gfxObjBytes);

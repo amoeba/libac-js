@@ -1,5 +1,5 @@
 {
-  "name": "libac",
+  "name": "@amoeba/libac",
   "description": "Library for working with Asheron's Call data structures and protocols.",
   "author": "Bryce Mecum",
   "version": "0.1.0",
