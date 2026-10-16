@@ -1,9 +1,9 @@
-import BinaryReader from "../../BinaryReader";
-import { SpellTable } from "../file_types/SpellTable";
-import { Unpackable } from "../../Unpackable";
-import { MagicSchool } from "../enums/MagicSchool";
-import { SpellType } from "../enums/SpellType";
-import { SpellCategory } from "../enums/SpellCategory";
+import BinaryReader from "../../BinaryReader.js";
+import { SpellTable } from "../file_types/SpellTable.js";
+import { Unpackable } from "../../Unpackable.js";
+import { MagicSchool } from "../enums/MagicSchool.js";
+import { SpellType } from "../enums/SpellType.js";
+import { SpellCategory } from "../enums/SpellCategory.js";
 
 const HIGHEST_COMP_ID = 198;
 

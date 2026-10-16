@@ -1,6 +1,6 @@
-import BinaryReader from "./BinaryReader";
-import { NumberDict } from "./dat/file_types/SpellTable";
-import { Unpackable } from "./Unpackable";
+import BinaryReader from "./BinaryReader.js";
+import { NumberDict } from "./dat/file_types/SpellTable.js";
+import { Unpackable } from "./Unpackable.js";
 
 export const unpackPackedHashTable = function <T extends Unpackable>(reader: BinaryReader, constructor: new () => T): NumberDict<T> {
   let result: NumberDict<T> = {};

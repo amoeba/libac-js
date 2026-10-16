@@ -1,8 +1,7 @@
-import SeekableFileReader from "../SeekableFileReader";
+import SeekableFileReader from "../SeekableFileReader.js";
 
 export class DatReader {
   reader: SeekableFileReader
-  buffer: Buffer | undefined
 
   constructor(reader: SeekableFileReader) {
     this.reader = reader;

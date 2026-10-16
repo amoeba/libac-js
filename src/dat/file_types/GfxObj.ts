@@ -1,9 +1,9 @@
-import BinaryReader from "../../BinaryReader";
-import { readItem } from "../../Unpackable";
-import { SWVertex } from "../types/SWVertex";
-import { Polygon } from "../types/Polygon";
-import { VertexArray } from "../types/VertexArray";
-import { readBSPNode, BSPTreeType } from "../types/BSPNode";
+import BinaryReader from "../../BinaryReader.js";
+import { readItem } from "../../Unpackable.js";
+import { SWVertex } from "../types/SWVertex.js";
+import { Polygon } from "../types/Polygon.js";
+import { VertexArray } from "../types/VertexArray.js";
+import { readBSPNode, BSPTreeType } from "../types/BSPNode.js";
 
 /** GfxObj flags (AC `GfxObjFlags`). */
 export enum GfxObjFlags {

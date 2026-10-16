@@ -1,4 +1,4 @@
-import BinaryReader from "../../BinaryReader";
+import BinaryReader from "../../BinaryReader.js";
 
 /** Positioning information for a Setup part (AC `Frame`). */
 export interface Frame {
@@ -7,4 +7,4 @@ export interface Frame {
 }
 
 // Re-export Vec3 and Quaternion types for convenience
-export { Vec3, Quaternion } from "../../BinaryReader";
+export { Vec3, Quaternion } from "../../BinaryReader.js";

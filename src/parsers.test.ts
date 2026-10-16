@@ -1,7 +1,7 @@
-import { GfxObj } from "./dat/file_types/GfxObj";
-import { Setup, SetupFlags, Placement } from "./dat/file_types/Setup";
-import BinaryReader from "./BinaryReader";
-import { parseMultipartMixed, extractBoundary } from "./multipart";
+import { GfxObj } from "./dat/file_types/GfxObj.js";
+import { Setup, SetupFlags, Placement } from "./dat/file_types/Setup.js";
+import BinaryReader from "./BinaryReader.js";
+import { parseMultipartMixed, extractBoundary } from "./multipart.js";
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);
@@ -76,138 +76,152 @@ test("BinaryReader honors Uint8Array byte offsets", () => {
   expect(reader.ReadUint32()).toBe(0x12345678);
 });
 
-// ─── GfxObj parser tests (using real binary from live endpoint) ──────
+// ─── Live-endpoint integration tests ─────────────────────────────────
+//
+// These parse real binaries fetched from https://dats.treestats.net. They are
+// opt-in because the external host is not reachable from CI (it returns 403 to
+// GitHub runners), so the default `npm test` must stay hermetic.
+//
+// Run them locally with: npm run test:integration
 
-const GFXOBJ_URL = "https://dats.treestats.net/dats/portal/files/0x010008AB";
-const SETUP_URL = "https://dats.treestats.net/dats/portal/files/0x02000108";
-const MULTIPART_URL = "https://dats.treestats.net/setups/0x02000108?include=gfxobjs";
+const RUN_LIVE_TESTS = process.env.LIBAC_INTEGRATION === "1";
+const liveDescribe = RUN_LIVE_TESTS ? describe : describe.skip;
 
-test("parse real GfxObj 0x010008AB from live endpoint", async () => {
-  const res = await fetch(GFXOBJ_URL);
-  expect(res.status).toBe(200);
-  const buf = await res.arrayBuffer();
-  const data = new Uint8Array(buf);
+liveDescribe("live endpoint integration (set LIBAC_INTEGRATION=1)", () => {
+  const GFXOBJ_URL = "https://dats.treestats.net/dats/portal/files/0x010008AB";
+  const SETUP_URL = "https://dats.treestats.net/dats/portal/files/0x02000108";
+  const MULTIPART_URL =
+    "https://dats.treestats.net/setups/0x02000108?include=gfxobjs";
 
-  const gfxobj = GfxObj.fromBuffer(data);
+  // ─── GfxObj parser tests (using real binary from live endpoint) ────
 
-  expect(gfxobj.id).toBe(0x010008ab);
-  expect(gfxobj.hasDrawing).toBe(true);
-  expect(gfxobj.vertexArray).toBeDefined();
-  expect(gfxobj.polygons.size).toBeGreaterThan(0);
-}, 15000);
+  test("parse real GfxObj 0x010008AB from live endpoint", async () => {
+    const res = await fetch(GFXOBJ_URL);
+    expect(res.status).toBe(200);
+    const buf = await res.arrayBuffer();
+    const data = new Uint8Array(buf);
 
-test("GfxObj vertex array has keyed vertices", async () => {
-  const res = await fetch(GFXOBJ_URL);
-  const buf = await res.arrayBuffer();
-  const gfxobj = GfxObj.fromBuffer(new Uint8Array(buf));
+    const gfxobj = GfxObj.fromBuffer(data);
 
-  expect(gfxobj.vertexArray).toBeDefined();
-  expect(gfxobj.vertexArray!.vertices.size).toBeGreaterThan(0);
+    expect(gfxobj.id).toBe(0x010008ab);
+    expect(gfxobj.hasDrawing).toBe(true);
+    expect(gfxobj.vertexArray).toBeDefined();
+    expect(gfxobj.polygons.size).toBeGreaterThan(0);
+  }, 15000);
 
-  // Vertices should have origin and normal
-  for (const [, v] of gfxobj.vertexArray!.vertices) {
-    expect(v.origin).toBeDefined();
-    expect(v.normal).toBeDefined();
-    expect(v.uvs.length).toBeGreaterThanOrEqual(0);
-  }
-}, 15000);
+  test("GfxObj vertex array has keyed vertices", async () => {
+    const res = await fetch(GFXOBJ_URL);
+    const buf = await res.arrayBuffer();
+    const gfxobj = GfxObj.fromBuffer(new Uint8Array(buf));
 
-test("GfxObj polygons have vertex IDs", async () => {
-  const res = await fetch(GFXOBJ_URL);
-  const buf = await res.arrayBuffer();
-  const gfxobj = GfxObj.fromBuffer(new Uint8Array(buf));
+    expect(gfxobj.vertexArray).toBeDefined();
+    expect(gfxobj.vertexArray!.vertices.size).toBeGreaterThan(0);
 
-  expect(gfxobj.polygons.size).toBeGreaterThan(0);
-  for (const [, poly] of gfxobj.polygons) {
-    expect(poly.vertexIds.length).toBeGreaterThanOrEqual(3);
-    expect(poly.posSurface).toBeGreaterThanOrEqual(0);
-  }
-}, 15000);
+    // Vertices should have origin and normal
+    for (const [, v] of gfxobj.vertexArray!.vertices) {
+      expect(v.origin).toBeDefined();
+      expect(v.normal).toBeDefined();
+      expect(v.uvs.length).toBeGreaterThanOrEqual(0);
+    }
+  }, 15000);
 
-// ─── Setup parser tests ──────────────────────────────────────────────
+  test("GfxObj polygons have vertex IDs", async () => {
+    const res = await fetch(GFXOBJ_URL);
+    const buf = await res.arrayBuffer();
+    const gfxobj = GfxObj.fromBuffer(new Uint8Array(buf));
 
-test("parse real Setup 0x02000108 from live endpoint", async () => {
-  const res = await fetch(SETUP_URL);
-  expect(res.status).toBe(200);
-  const buf = await res.arrayBuffer();
-  const data = new Uint8Array(buf);
+    expect(gfxobj.polygons.size).toBeGreaterThan(0);
+    for (const [, poly] of gfxobj.polygons) {
+      expect(poly.vertexIds.length).toBeGreaterThanOrEqual(3);
+      expect(poly.posSurface).toBeGreaterThanOrEqual(0);
+    }
+  }, 15000);
 
-  const setup = Setup.fromBuffer(data);
+  // ─── Setup parser tests ────────────────────────────────────────────
 
-  expect(setup.id).toBe(0x02000108);
-  expect(setup.numParts).toBeGreaterThan(0);
-  expect(setup.parts.length).toBe(setup.numParts);
-  expect(setup.getDefaultFrames()).toBeDefined();
-}, 15000);
+  test("parse real Setup 0x02000108 from live endpoint", async () => {
+    const res = await fetch(SETUP_URL);
+    expect(res.status).toBe(200);
+    const buf = await res.arrayBuffer();
+    const data = new Uint8Array(buf);
 
-test("Setup parts are nonzero GfxObj IDs", async () => {
-  const res = await fetch(SETUP_URL);
-  const buf = await res.arrayBuffer();
-  const setup = Setup.fromBuffer(new Uint8Array(buf));
+    const setup = Setup.fromBuffer(data);
 
-  // From the implementation notes: 0x02000108 references GfxObj 0x010008AB
-  const nonzeroParts = setup.parts.filter((p) => p !== 0);
-  expect(nonzeroParts.length).toBeGreaterThan(0);
-  expect(nonzeroParts.every((p) => p >= 0x01000000)).toBe(true);
-}, 15000);
+    expect(setup.id).toBe(0x02000108);
+    expect(setup.numParts).toBeGreaterThan(0);
+    expect(setup.parts.length).toBe(setup.numParts);
+    expect(setup.getDefaultFrames()).toBeDefined();
+  }, 15000);
 
-test("Setup default placement frame has one Frame per part", async () => {
-  const res = await fetch(SETUP_URL);
-  const buf = await res.arrayBuffer();
-  const setup = Setup.fromBuffer(new Uint8Array(buf));
+  test("Setup parts are nonzero GfxObj IDs", async () => {
+    const res = await fetch(SETUP_URL);
+    const buf = await res.arrayBuffer();
+    const setup = Setup.fromBuffer(new Uint8Array(buf));
 
-  const defaultFrame = setup.getDefaultFrames();
-  expect(defaultFrame).toBeDefined();
-  expect(defaultFrame!.frames.length).toBe(setup.numParts);
-}, 15000);
+    // From the implementation notes: 0x02000108 references GfxObj 0x010008AB
+    const nonzeroParts = setup.parts.filter((p) => p !== 0);
+    expect(nonzeroParts.length).toBeGreaterThan(0);
+    expect(nonzeroParts.every((p) => p >= 0x01000000)).toBe(true);
+  }, 15000);
 
-// ─── Multipart parser tests ──────────────────────────────────────────
+  test("Setup default placement frame has one Frame per part", async () => {
+    const res = await fetch(SETUP_URL);
+    const buf = await res.arrayBuffer();
+    const setup = Setup.fromBuffer(new Uint8Array(buf));
 
-test("parse multipart/mixed response from /setups/:id?include=gfxobjs", async () => {
-  const res = await fetch(MULTIPART_URL);
-  expect(res.status).toBe(200);
-  expect(res.headers.get("content-type")).toContain("multipart/mixed");
+    const defaultFrame = setup.getDefaultFrames();
+    expect(defaultFrame).toBeDefined();
+    expect(defaultFrame!.frames.length).toBe(setup.numParts);
+  }, 15000);
 
-  const contentType = res.headers.get("content-type")!;
-  const boundary = extractBoundary(contentType);
-  expect(boundary).not.toBeNull();
-  expect(boundary).toBe("acdatservice-02000108-0");
+  // ─── Multipart parser tests ────────────────────────────────────────
 
-  const buf = await res.arrayBuffer();
-  const parts = parseMultipartMixed(new Uint8Array(buf), boundary!);
+  test("parse multipart/mixed response from /setups/:id?include=gfxobjs", async () => {
+    const res = await fetch(MULTIPART_URL);
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")).toContain("multipart/mixed");
 
-  // Should have 2 parts: Setup + 1 GfxObj
-  expect(parts.length).toBe(2);
+    const contentType = res.headers.get("content-type")!;
+    const boundary = extractBoundary(contentType);
+    expect(boundary).not.toBeNull();
+    expect(boundary).toBe("acdatservice-02000108-0");
 
-  // First part should be the Setup (0x02000108)
-  const setupPart = parts.find((p) => p.fileId === 0x02000108);
-  expect(setupPart).toBeDefined();
-  expect(setupPart!.contentType).toBe("application/octet-stream");
-  expect(setupPart!.contentLocation).toBe("/dats/portal/files/0x02000108");
+    const buf = await res.arrayBuffer();
+    const parts = parseMultipartMixed(new Uint8Array(buf), boundary!);
 
-  // Second part should be the GfxObj (0x010008AB)
-  const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab);
-  expect(gfxobjPart).toBeDefined();
-  expect(gfxobjPart!.contentLocation).toBe("/dats/portal/files/0x010008AB");
-}, 15000);
+    // Should have 2 parts: Setup + 1 GfxObj
+    expect(parts.length).toBe(2);
 
-test("multipart parts parse as valid GfxObj and Setup", async () => {
-  const res = await fetch(MULTIPART_URL);
-  const contentType = res.headers.get("content-type")!;
-  const boundary = extractBoundary(contentType)!;
-  const buf = await res.arrayBuffer();
-  const parts = parseMultipartMixed(new Uint8Array(buf), boundary);
+    // First part should be the Setup (0x02000108)
+    const setupPart = parts.find((p) => p.fileId === 0x02000108);
+    expect(setupPart).toBeDefined();
+    expect(setupPart!.contentType).toBe("application/octet-stream");
+    expect(setupPart!.contentLocation).toBe("/dats/portal/files/0x02000108");
 
-  const setupPart = parts.find((p) => p.fileId === 0x02000108)!;
-  const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab)!;
+    // Second part should be the GfxObj (0x010008AB)
+    const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab);
+    expect(gfxobjPart).toBeDefined();
+    expect(gfxobjPart!.contentLocation).toBe("/dats/portal/files/0x010008AB");
+  }, 15000);
 
-  const setup = Setup.fromBuffer(setupPart.body);
-  const gfxobj = GfxObj.fromBuffer(gfxobjPart.body);
+  test("multipart parts parse as valid GfxObj and Setup", async () => {
+    const res = await fetch(MULTIPART_URL);
+    const contentType = res.headers.get("content-type")!;
+    const boundary = extractBoundary(contentType)!;
+    const buf = await res.arrayBuffer();
+    const parts = parseMultipartMixed(new Uint8Array(buf), boundary);
 
-  expect(setup.id).toBe(0x02000108);
-  expect(gfxobj.id).toBe(0x010008ab);
-  expect(setup.parts).toContain(0x010008ab);
-  expect(gfxobj.hasDrawing).toBe(true);
-  expect(gfxobj.polygons.size).toBeGreaterThan(0);
-  expect(gfxobj.vertexArray!.vertices.size).toBeGreaterThan(0);
-}, 15000);
+    const setupPart = parts.find((p) => p.fileId === 0x02000108)!;
+    const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab)!;
+
+    const setup = Setup.fromBuffer(setupPart.body);
+    const gfxobj = GfxObj.fromBuffer(gfxobjPart.body);
+
+    expect(setup.id).toBe(0x02000108);
+    expect(gfxobj.id).toBe(0x010008ab);
+    expect(setup.parts).toContain(0x010008ab);
+    expect(gfxobj.hasDrawing).toBe(true);
+    expect(gfxobj.polygons.size).toBeGreaterThan(0);
+    expect(gfxobj.vertexArray!.vertices.size).toBeGreaterThan(0);
+  }, 15000);
+});

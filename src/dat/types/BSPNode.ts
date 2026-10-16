@@ -1,6 +1,6 @@
-import BinaryReader from "../../BinaryReader";
-import { readPlane, Plane } from "./Plane";
-import { readSphere, Sphere } from "./Sphere";
+import BinaryReader from "../../BinaryReader.js";
+import { readPlane, Plane } from "./Plane.js";
+import { readSphere, Sphere } from "./Sphere.js";
 
 /** BSP tree categories — determines which fields appear in each node. */
 export type BSPTreeType = "Physics" | "Drawing" | "Cell";

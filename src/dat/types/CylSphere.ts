@@ -1,4 +1,4 @@
-import BinaryReader from "../../BinaryReader";
+import BinaryReader from "../../BinaryReader.js";
 
 /** CylSphere — a cylinder-shaped bounding volume (AC `CylSphere`). */
 export interface CylSphere {

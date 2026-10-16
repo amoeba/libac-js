@@ -1,4 +1,4 @@
-import BinaryReader from "../../BinaryReader";
+import BinaryReader from "../../BinaryReader.js";
 
 /** ColorARGB — a 32-bit color (AC `ColorARGB`). */
 export interface ColorARGB {

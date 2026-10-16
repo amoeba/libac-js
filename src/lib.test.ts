@@ -1,6 +1,6 @@
 
-import BinaryReader from './BinaryReader';
-import SeekableFileReader from './SeekableFileReader';
+import BinaryReader from './BinaryReader.js';
+import SeekableFileReader from './node/SeekableFileReader.js';
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);
