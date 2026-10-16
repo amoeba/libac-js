@@ -96,6 +96,17 @@ import { DatDatabase } from "@amoeba/libac/node";
 
 Everything else keeps its existing import path at the package root.
 
+Two further notes:
+
+- The public API now uses `Uint8Array` instead of Node's `Buffer`:
+  `Texture.buffer` and `SeekableFileReader.read()` return/use `Uint8Array`. Code
+  that relied on Buffer-only methods (e.g. `texture.buffer.toString("hex")`) must
+  be updated.
+- The `@amoeba/libac/node` subpath is resolved via the `exports` map, so it
+  requires a modern TypeScript `moduleResolution` (`node16`, `nodenext`, or
+  `bundler`). The root entry still works under the legacy `node` (node10)
+  resolver via the top-level `main`/`types` fallbacks.
+
 ## Status
 
 `0.2.0` is an initial `0.x` API. Public exports and their shapes may change in
