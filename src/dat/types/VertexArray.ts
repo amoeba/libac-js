@@ -1,6 +1,6 @@
-import BinaryReader from "../../BinaryReader";
-import { Unpackable, readItem } from "../../Unpackable";
-import { SWVertex } from "./SWVertex";
+import BinaryReader from "../../BinaryReader.js";
+import { Unpackable, readItem } from "../../Unpackable.js";
+import { SWVertex } from "./SWVertex.js";
 
 /** A vertex array in a RenderMesh (AC `RenderMeshVerticesArray` / `VertexArray`).
 

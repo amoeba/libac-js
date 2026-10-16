@@ -1,7 +1,7 @@
-import { GfxObj } from "./dat/file_types/GfxObj";
-import { Setup, SetupFlags, Placement } from "./dat/file_types/Setup";
-import BinaryReader from "./BinaryReader";
-import { parseMultipartMixed, extractBoundary } from "./multipart";
+import { GfxObj } from "./dat/file_types/GfxObj.js";
+import { Setup, SetupFlags, Placement } from "./dat/file_types/Setup.js";
+import BinaryReader from "./BinaryReader.js";
+import { parseMultipartMixed, extractBoundary } from "./multipart.js";
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);

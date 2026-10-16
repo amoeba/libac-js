@@ -1,5 +1,5 @@
-import { Vec3 } from "../../BinaryReader";
-import BinaryReader from "../../BinaryReader";
+import { Vec3 } from "../../BinaryReader.js";
+import BinaryReader from "../../BinaryReader.js";
 
 export interface Plane {
   normal: Vec3;

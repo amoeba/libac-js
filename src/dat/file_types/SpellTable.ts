@@ -1,9 +1,8 @@
-import BinaryReader from "../../BinaryReader";
-import SeekableFileReader from "../../SeekableFileReader";
-import { unpackPackedHashTable } from "../../PackedHashTable";
-import { SpellBase } from "../entities/SpellBase";
-import { SpellSet } from "../entities/SpellSet";
-import { Unpackable } from "../../Unpackable";
+import BinaryReader from "../../BinaryReader.js";
+import { unpackPackedHashTable } from "../../PackedHashTable.js";
+import { SpellBase } from "../entities/SpellBase.js";
+import { SpellSet } from "../entities/SpellSet.js";
+import { Unpackable } from "../../Unpackable.js";
 
 export interface NumberDict<T> {
   [key: number]: T

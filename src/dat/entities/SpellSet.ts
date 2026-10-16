@@ -1,8 +1,8 @@
-import BinaryReader from "../../BinaryReader";
-import { unpackPackedHashTable } from "../../PackedHashTable";
-import { SpellSetTiers } from "./SpellSetTiers";
-import { NumberDict } from "../file_types/SpellTable";
-import { Unpackable } from "../../Unpackable";
+import BinaryReader from "../../BinaryReader.js";
+import { unpackPackedHashTable } from "../../PackedHashTable.js";
+import { SpellSetTiers } from "./SpellSetTiers.js";
+import { NumberDict } from "../file_types/SpellTable.js";
+import { Unpackable } from "../../Unpackable.js";
 
 export class SpellSet implements Unpackable {
   highest_tier: number | undefined

@@ -1,5 +1,5 @@
-import BinaryReader from "../../BinaryReader";
-import { Unpackable, unpackInt32Array } from "../../Unpackable";
+import BinaryReader from "../../BinaryReader.js";
+import { Unpackable, unpackInt32Array } from "../../Unpackable.js";
 
 export class SpellSetTiers implements Unpackable {
   spells: number[] | undefined

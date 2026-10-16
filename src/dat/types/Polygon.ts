@@ -1,5 +1,5 @@
-import BinaryReader from "../../BinaryReader";
-import { Unpackable } from "../../Unpackable";
+import BinaryReader from "../../BinaryReader.js";
+import { Unpackable } from "../../Unpackable.js";
 
 /** A polygon in a RenderMesh (AC `Polygon`).
 

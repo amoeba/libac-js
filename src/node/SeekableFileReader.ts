@@ -1,4 +1,4 @@
-const fs = require('fs');
+import * as fs from "fs";
 
 export default class SeekableFileReader {
   filePath: string;
@@ -27,12 +27,12 @@ export default class SeekableFileReader {
     return this;
   }
 
-  read(count: number) {
+  read(count: number): Uint8Array {
     if (this.fd === null) {
       this.open();
     }
 
-    const buffer = Buffer.alloc(count);
+    const buffer = new Uint8Array(count);
     const bytesRead = fs.readSync(this.fd, buffer, 0, count, this.position);
 
     this.position += bytesRead;

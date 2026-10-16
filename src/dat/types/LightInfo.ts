@@ -1,6 +1,6 @@
-import BinaryReader from "../../BinaryReader";
-import { Frame } from "./Frame";
-import { readColorARGB, ColorARGB } from "./ColorARGB";
+import BinaryReader from "../../BinaryReader.js";
+import { Frame } from "./Frame.js";
+import { readColorARGB, ColorARGB } from "./ColorARGB.js";
 
 /** LightInfo — a light attached to a Setup part (AC `LightInfo`). */
 export interface LightInfo {

@@ -1,6 +1,6 @@
-import BinaryReader from "../BinaryReader"
-import { DatFile } from "./DatFile"
-import { Unpackable } from "../Unpackable"
+import BinaryReader from "../BinaryReader.js"
+import { DatFile } from "./DatFile.js"
+import { Unpackable } from "../Unpackable.js"
 
 export class DatDirectoryHeader implements Unpackable {
   branches: Uint32Array

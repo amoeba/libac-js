@@ -1,6 +1,5 @@
-import BinaryReader from "../../BinaryReader";
-import SeekableFileReader from "../../SeekableFileReader";
-import { Unpackable } from "../../Unpackable";
+import BinaryReader from "../../BinaryReader.js";
+import { Unpackable } from "../../Unpackable.js";
 
 export class Texture implements Unpackable {
   form: number | undefined
@@ -8,7 +7,7 @@ export class Texture implements Unpackable {
   height: number | undefined
   format: number | undefined
   length: number | undefined
-  buffer: Buffer | undefined
+  buffer: Uint8Array | undefined
 
   unpack(reader: BinaryReader) {
     // ID?
@@ -25,7 +24,7 @@ export class Texture implements Unpackable {
     this.format = reader.ReadUint32();
     this.length = reader.ReadUint32();
 
-    this.buffer = Buffer.alloc(this.length);
+    this.buffer = new Uint8Array(this.length);
 
     for (let i = 0; i < this.length; i++) {
       this.buffer[i] = reader.ReadUint8()

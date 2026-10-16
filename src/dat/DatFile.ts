@@ -1,6 +1,6 @@
-import BinaryReader from "../BinaryReader"
-import { DatFileType, getFileType, getFileTypeName } from "./DatFileType"
-import { Unpackable } from "../Unpackable"
+import BinaryReader from "../BinaryReader.js"
+import { DatFileType, getFileType, getFileTypeName } from "./DatFileType.js"
+import { Unpackable } from "../Unpackable.js"
 
 export class DatFile implements Unpackable {
   BitFlags: number | undefined

@@ -1,8 +1,8 @@
-import { DatDirectoryHeader } from "./DatDirectoryHeader"
-import { DatFile } from "./DatFile"
-import { DatReader } from "./DatReader"
-import SeekableFileReader from "../SeekableFileReader"
-import BinaryReader from "../BinaryReader";
+import { DatDirectoryHeader } from "../../dat/DatDirectoryHeader.js"
+import { DatFile } from "../../dat/DatFile.js"
+import { DatReader } from "./DatReader.js"
+import SeekableFileReader from "../SeekableFileReader.js"
+import BinaryReader from "../../BinaryReader.js";
 
 const DAT_DIRECTORY_HEADER_OBJECT_SIZE = 0x6B4; // 4 * 62 + 4 + 24 * 61 == 1716
 

@@ -1,10 +1,10 @@
-import BinaryReader from "../../BinaryReader";
-import { readAnimationFrame, AnimationFrame } from "../types/AnimationFrame";
-import { readCylSphere, CylSphere } from "../types/CylSphere";
-import { readSphere, Sphere } from "../types/Sphere";
-import { readLightInfo, LightInfo } from "../types/LightInfo";
-import { readLocationType, LocationType } from "../types/LocationType";
-import { Vec3 } from "../../BinaryReader";
+import BinaryReader from "../../BinaryReader.js";
+import { readAnimationFrame, AnimationFrame } from "../types/AnimationFrame.js";
+import { readCylSphere, CylSphere } from "../types/CylSphere.js";
+import { readSphere, Sphere } from "../types/Sphere.js";
+import { readLightInfo, LightInfo } from "../types/LightInfo.js";
+import { readLocationType, LocationType } from "../types/LocationType.js";
+import { Vec3 } from "../../BinaryReader.js";
 
 /** Setup flags (AC `SetupFlags`). */
 export enum SetupFlags {

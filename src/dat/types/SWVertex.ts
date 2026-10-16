@@ -1,5 +1,5 @@
-import BinaryReader, { Vec3 } from "../../BinaryReader";
-import { Unpackable } from "../../Unpackable";
+import BinaryReader, { Vec3 } from "../../BinaryReader.js";
+import { Unpackable } from "../../Unpackable.js";
 
 /** A vertex in a RenderMesh VertexArray (AC `SWVertex`). */
 export class SWVertex implements Unpackable {

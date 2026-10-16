@@ -1,5 +1,5 @@
-import BinaryReader from "../../BinaryReader";
-import { Frame } from "./Frame";
+import BinaryReader from "../../BinaryReader.js";
+import { Frame } from "./Frame.js";
 
 /** AnimationFrame — one Frame per Setup part + optional hooks (AC `AnimationFrame`).
 

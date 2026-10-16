@@ -2,16 +2,20 @@
   "name": "@amoeba/libac",
   "description": "Library for working with Asheron's Call data structures and protocols.",
   "author": "Bryce Mecum",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "default": "./dist/node/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -29,8 +33,11 @@
   "homepage": "https://github.com/amoeba/libac-js#readme",
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
-    "build": "npm run clean && tsc",
-    "test": "jest",
+    "build": "npm run clean && tsc -p tsconfig.browser.json && tsc -p tsconfig.node.json",
+    "typecheck:browser": "tsc -p tsconfig.browser.json --noEmit",
+    "check:browser": "node scripts/check-browser-bundle.mjs",
+    "verify": "npm run build && npm run check:browser && npm run typecheck:browser && npm test",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "prepack": "npm run build",
     "prepublishOnly": "npm test"
   },

@@ -1,4 +1,4 @@
-import BinaryReader from "../../BinaryReader";
+import BinaryReader from "../../BinaryReader.js";
 
 /** A part reference + transform frame (AC `LocationType`).
 

@@ -1,4 +1,4 @@
-import SeekableFileReader from "../SeekableFileReader";
+import SeekableFileReader from "../SeekableFileReader.js";
 
 const DAT_HEADER_OFFSET = 0x140;
 
