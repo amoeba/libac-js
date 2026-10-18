@@ -1,6 +1,9 @@
 import BinaryReader from "../../BinaryReader.js";
 import { Unpackable } from "../../Unpackable.js";
 
+/** Stippling flag: the polygon has no positive/front face to draw. */
+export const POLYGON_STIPPLING_NO_POS = 0x04;
+
 /** A polygon in a RenderMesh (AC `Polygon`).
 
  * The Polygon describes a convex polygon with an arbitrary number of
@@ -11,10 +14,10 @@ export class Polygon implements Unpackable {
   /** Number of vertices in this polygon (1 byte). */
   numVertices: number = 0;
 
-  /** Stippling flags (1 byte): NoPos=0x01, NoNeg=0x02. */
+  /** Stippling flags (1 byte): NoPos=0x04, NoNeg=0x08. */
   stippling: number = 0;
 
-  /** Cull mode (i32): Clockwise, CounterClockwise, or None. */
+  /** Cull mode (i32): Clockwise=2, CounterClockwise=1, None=0. */
   sidesType: number = 0;
 
   /** Surface ID for the front (positive) side. */
@@ -72,4 +75,9 @@ export class Polygon implements Unpackable {
     }
     return indices;
   }
+}
+
+/** Whether the polygon has a drawable positive/front face. */
+export function hasPositiveFace(polygon: Polygon): boolean {
+  return polygon.stippling !== POLYGON_STIPPLING_NO_POS;
 }

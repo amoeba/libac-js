@@ -36,7 +36,7 @@ export class AnimationFrame {
  * Based on the decompiled AC AnimationHook format. The hook type is a uint32
  * tag that determines the payload structure.
  */
-interface AnimationHook {
+export interface AnimationHook {
   type: number;
   direction: number;
 }

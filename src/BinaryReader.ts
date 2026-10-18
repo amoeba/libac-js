@@ -1,12 +1,45 @@
+/**
+ * Copy a possibly-view `Uint8Array`/`ArrayBuffer` into a standalone
+ * `ArrayBuffer` so `DataView` offsets are always correct.
+ *
+ * Zero-copy when the view already spans its whole backing buffer; otherwise the
+ * bytes are copied. `BinaryReader` runs every input through this, so callers may
+ * pass a `Uint8Array` slice (a bundle/pack payload, an HTTP body view) directly.
+ */
+export function toExactArrayBuffer(
+  data: ArrayBufferLike | ArrayBufferView,
+): ArrayBuffer {
+  if (data instanceof ArrayBuffer) return data;
+  if (ArrayBuffer.isView(data)) {
+    if (data.byteOffset === 0 && data.byteLength === data.buffer.byteLength) {
+      return data.buffer as ArrayBuffer;
+    }
+    const copy = new Uint8Array(data.byteLength);
+    copy.set(new Uint8Array(data.buffer, data.byteOffset, data.byteLength));
+    return copy.buffer;
+  }
+  // SharedArrayBuffer and friends: copy into a plain ArrayBuffer.
+  const copy = new Uint8Array(data.byteLength);
+  copy.set(new Uint8Array(data as ArrayBufferLike));
+  return copy.buffer;
+}
+
 export default class BinaryReader {
   buffer: ArrayBufferLike
   position: number
 
   constructor(buffer: ArrayBufferLike | ArrayBufferView) {
-    this.buffer = ArrayBuffer.isView(buffer)
-      ? buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength)
-      : buffer;
+    this.buffer = toExactArrayBuffer(buffer);
     this.position = 0;
+  }
+
+  /** Number of bytes left to read. */
+  get remaining(): number {
+    return this.buffer.byteLength - this.position;
+  }
+
+  slice(start: number, end?: number): ArrayBufferLike {
+    return this.buffer.slice(start, end);
   }
 
   read(length: number): ArrayBufferLike {
@@ -142,6 +175,15 @@ export default class BinaryReader {
     const bytes = this.ReadBytes(len);
     const decoder = new TextDecoder('utf-8');
     return decoder.decode(bytes);
+  }
+
+  /** AC aligned string: u16 byte length, Latin-1 bytes, then 4-byte alignment. */
+  ReadPString(): string {
+    const length = this.ReadUint16();
+    const bytes = this.ReadBytes(length);
+    this.AlignBoundary();
+    // DAT strings are Latin-1; decode leniently so stray bytes never throw.
+    return new TextDecoder('windows-1252').decode(bytes);
   }
 
   ReadVector3(): Vec3 {

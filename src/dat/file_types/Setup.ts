@@ -25,6 +25,8 @@ export enum Placement {
     Shield = 0x00000006,
     LeftWeapon = 0x00000007,
     LeftUnarmed = 0x00000008,
+    /** Rest pose used for world-placed objects (decorations, buildings, items). */
+    Resting = 0x00000065,
 }
 
 /**
@@ -183,6 +185,16 @@ export class Setup {
   /** The default placement frame — absolute transform for each part. */
   getDefaultFrames(): AnimationFrame | undefined {
     return this.placementFrames.get(Placement.Default);
+  }
+
+  /** The placement frame a world-placed object uses — absolute transform for
+   * each part. Prefers `Resting` (0x65), falling back to `Default` (0), to
+   * match ACE's `PartArray.SetPlacementFrame(0x65)` and ACViewer's lookup. */
+  getPlacementFrames(): AnimationFrame | undefined {
+    return (
+      this.placementFrames.get(Placement.Resting) ??
+      this.placementFrames.get(Placement.Default)
+    );
   }
 
   /** True if this Setup has parent-child hierarchy data. */

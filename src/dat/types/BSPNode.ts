@@ -23,20 +23,11 @@ function readNodeType(reader: BinaryReader): string {
   return String.fromCharCode(bytes[3], bytes[2], bytes[1], bytes[0]);
 }
 
-/** Skip a PortalPoly (DrawingBSPTree PORT nodes only — rare for GfxObj data). */
+/** Skip a PortalPoly (DrawingBSPTree PORT nodes). Each is two int16s:
+ * PortalIndex + PolygonId (see ACE PortalPoly.cs). */
 function skipPortalPoly(reader: BinaryReader): void {
-  const numVerts = reader.ReadUint16();
-  reader.ReadUint16(); // flags?
-  reader.ReadUint16(); // sector?
-  for (let i = 0; i < numVerts; i++) {
-    reader.ReadVector3();
-  }
-  const numEdges = reader.ReadUint16();
-  for (let i = 0; i < numEdges; i++) {
-    reader.ReadInt32();  // edge
-    reader.ReadInt16();  // forward
-    reader.ReadInt16();  // backward
-  }
+  reader.ReadInt16(); // PortalIndex
+  reader.ReadInt16(); // PolygonId
 }
 
 /** Recursively parse a BSP node tree and collect InPolys.

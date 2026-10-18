@@ -4,7 +4,9 @@ TypeScript library for reading Asheron's Call DAT data structures and related
 HTTP responses.
 
 - Low-level binary reader (`BinaryReader`) and DAT models/types.
-- Parsers for portal DAT file types: `GfxObj`, `Setup`, `SpellTable`, `Texture`.
+- Parsers for portal and cell DAT file types: `GfxObj`, `Setup`, `Texture`,
+  `Surface`, `SurfaceTexture`, `Palette`, `Region`, `Scene`, `CellLandblock`,
+  `LandblockInfo`, `EnvCell`, `Environment`.
 - `multipart/mixed` HTTP response parsing (`extractBoundary`, `parseMultipartMixed`).
 - Node-only, filesystem-backed DAT access (`SeekableFileReader`, `DatDatabase`, `DatReader`).
 

@@ -40,6 +40,7 @@
     "check:browser": "node scripts/check-browser-bundle.mjs",
     "verify": "npm run build && npm run check:browser && npm run typecheck:browser && npm test",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "prepare": "npm run build",
     "prepack": "npm run build",
     "prepublishOnly": "npm test"
   },
