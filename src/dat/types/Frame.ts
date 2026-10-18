@@ -1,9 +1,17 @@
-import BinaryReader from "../../BinaryReader.js";
+import BinaryReader, { Vec3, Quaternion } from "../../BinaryReader.js";
 
-/** Positioning information for a Setup part (AC `Frame`). */
+/** Positioning information for a Setup part or a placed object (AC `Frame`). */
 export interface Frame {
-  origin: { x: number; y: number; z: number };
-  orientation: { x: number; y: number; z: number; w: number };
+  origin: Vec3;
+  orientation: Quaternion;
+}
+
+/** AC Frame binary layout: origin (3 f32) + quaternion stored w,x,y,z (4 f32). */
+export function readFrame(reader: BinaryReader): Frame {
+  return {
+    origin: reader.ReadVector3(),
+    orientation: reader.ReadQuaternion(),
+  };
 }
 
 // Re-export Vec3 and Quaternion types for convenience
