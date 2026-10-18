@@ -1,3 +1,5 @@
+import { readString } from './readString.js';
+
 /**
  * Copy a possibly-view `Uint8Array`/`ArrayBuffer` into a standalone
  * `ArrayBuffer` so `DataView` offsets are always correct.
@@ -163,18 +165,7 @@ export default class BinaryReader {
   }
 
   ReadString(): string {
-    // 7-bit encoded length prefix (C# BinaryReader.ReadString / AC read_ac_string)
-    let len = 0;
-    let shift = 0;
-    for (;;) {
-      const b = this.ReadUint8();
-      len |= (b & 0x7f) << shift;
-      if ((b & 0x80) === 0) break;
-      shift += 7;
-    }
-    const bytes = this.ReadBytes(len);
-    const decoder = new TextDecoder('utf-8');
-    return decoder.decode(bytes);
+    return readString(this);
   }
 
   /** AC aligned string: u16 byte length, Latin-1 bytes, then 4-byte alignment. */

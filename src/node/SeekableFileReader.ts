@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { readString } from "../readString.js";
 
 export default class SeekableFileReader {
   filePath: string;
@@ -125,9 +126,8 @@ export default class SeekableFileReader {
     return view.getFloat64(0, true);
   }
 
-  // TODO
   ReadString(): string {
-    return "TODO";
+    return readString(this);
   }
 
   AlignBoundary() {
