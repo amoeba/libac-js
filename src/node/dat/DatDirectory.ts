@@ -27,7 +27,7 @@ export class DatDirectory {
 
   read() {
     let dat_reader = new DatReader(this.reader).read(this.RootSectorOffset, DAT_DIRECTORY_HEADER_OBJECT_SIZE, this.BlockSize);
-    let header_reader = new BinaryReader(dat_reader.buffer);
+    let header_reader = new BinaryReader(dat_reader);
     this.header.unpack(header_reader);
 
     // Stop reading if this is a leaf directory
