@@ -257,23 +257,78 @@ describe('DataView byteOffset handling (#7)', () => {
   });
 });
 
-// ─── #4: read() returns a Uint8Array ─────────────────────────────────
+// ─── #4: read() returns an independent Uint8Array ────────────────────
 
-describe('read() return type (#4)', () => {
-  test('BinaryReader.read returns a Uint8Array view and advances position', () => {
+describe('read() return type and copy semantics (#4)', () => {
+  test('BinaryReader.read returns a Uint8Array and advances position', () => {
     const reader = new BinaryReader(Uint8Array.from([1, 2, 3, 4]));
-    const view = reader.read(2);
-    expect(view).toBeInstanceOf(Uint8Array);
-    expect([...view]).toEqual([1, 2]);
+    const bytes = reader.read(2);
+    expect(bytes).toBeInstanceOf(Uint8Array);
+    expect([...bytes]).toEqual([1, 2]);
     expect(reader.position).toBe(2);
   });
 
   test('read is short at EOF and clamps position', () => {
     const reader = new BinaryReader(Uint8Array.from([1, 2, 3]));
-    const view = reader.read(10);
-    expect([...view]).toEqual([1, 2, 3]);
+    const bytes = reader.read(10);
+    expect([...bytes]).toEqual([1, 2, 3]);
     expect(reader.position).toBe(3);
     expect([...reader.read(1)]).toEqual([]);
     expect(reader.position).toBe(3);
+  });
+
+  test('mutating the result of read() cannot corrupt the reader or its input', () => {
+    const input = Uint8Array.from([1, 2, 3, 4]);
+    const reader = new BinaryReader(input);
+
+    const bytes = reader.read(4);
+    bytes[0] = 99;
+
+    // The caller's original buffer is untouched, and a fresh reader over it
+    // still sees the original bytes.
+    expect(input[0]).toBe(1);
+    expect(new BinaryReader(input).read(4)[0]).toBe(1);
+  });
+
+  test('ReadUint8Array/ReadBytes return copies', () => {
+    const reader = new BinaryReader(Uint8Array.from([1, 2, 3]));
+    const slice = reader.ReadBytes(3);
+    slice[0] = 99;
+    expect(new BinaryReader(Uint8Array.from([1, 2, 3])).ReadUint8Array(3)[0]).toBe(1);
+  });
+});
+
+// ─── typed arrays: length reflects available bytes; guarded counts ────
+
+describe('ReadUint16Array/ReadUint32Array sizing and guards', () => {
+  test('short read returns only the available elements (no zero padding)', () => {
+    // 3 bytes -> only one whole uint16 is available.
+    const u16 = new BinaryReader(Uint8Array.from([1, 0, 2]));
+    expect([...u16.ReadUint16Array(4)]).toEqual([1]);
+
+    // 5 bytes -> only one whole uint32 is available.
+    const u32 = new BinaryReader(Uint8Array.from([1, 0, 0, 0, 2]));
+    expect([...u32.ReadUint32Array(3)]).toEqual([1]);
+  });
+
+  test('non-positive counts return empty arrays without throwing', () => {
+    const reader = new BinaryReader(Uint8Array.from([1, 2, 3, 4]));
+    expect(reader.ReadUint16Array(0).length).toBe(0);
+    expect(reader.ReadUint32Array(0).length).toBe(0);
+    expect(reader.ReadUint16Array(-1).length).toBe(0);
+    expect(reader.ReadUint32Array(-1).length).toBe(0);
+    expect(reader.read(-5).length).toBe(0);
+    expect(reader.position).toBe(0);
+  });
+
+  test('SeekableFileReader short read returns only available elements', () => {
+    withTempFile([1, 0, 2], (path) => {
+      const reader = new SeekableFileReader(path);
+      try {
+        expect([...reader.ReadUint16Array(4)]).toEqual([1]);
+      } finally {
+        reader.close();
+      }
+    });
   });
 });

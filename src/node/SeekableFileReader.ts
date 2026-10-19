@@ -29,7 +29,10 @@ export default class SeekableFileReader extends ReaderBase {
     return this;
   }
 
-  read(count: number): Uint8Array {
+  protected readView(count: number): Uint8Array {
+    if (count <= 0) {
+      return new Uint8Array(0);
+    }
     if (this.fd === null) {
       this.open();
     }

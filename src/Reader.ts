@@ -78,18 +78,29 @@ function dataView(view: Uint8Array): DataView {
 
 /**
  * The single shared implementation of every typed read method, layered on the
- * one abstract primitive {@link ReaderBase.read}. Concrete readers differ only
- * in where the bytes come from.
+ * one abstract primitive {@link ReaderBase.readView}. Concrete readers differ
+ * only in where the bytes come from.
  */
 export abstract class ReaderBase implements Reader {
   position: number = 0;
 
   /**
    * Read the next `count` bytes and advance `position` by the number of bytes
-   * actually available. Implementations may return a zero-copy view into their
-   * backing store, and may return fewer than `count` bytes at EOF.
+   * actually available (short at EOF). Internal primitive: implementations may
+   * return a zero-copy view that aliases their backing store, so callers must
+   * neither retain nor mutate the result.
    */
-  abstract read(count: number): Uint8Array;
+  protected abstract readView(count: number): Uint8Array;
+
+  /**
+   * Read the next `count` bytes and advance `position`. Returns an independent
+   * copy so callers can never mutate the reader's backing store — nor, for an
+   * in-memory reader, the buffer they passed to the constructor.
+   */
+  read(count: number): Uint8Array {
+    if (count <= 0) return new Uint8Array(0);
+    return this.readView(count).slice();
+  }
 
   seek(position: number): this {
     this.position = position;
@@ -97,48 +108,52 @@ export abstract class ReaderBase implements Reader {
   }
 
   ReadInt8(): number {
-    return dataView(this.read(1)).getInt8(0);
+    return dataView(this.readView(1)).getInt8(0);
   }
 
   ReadInt16(): number {
-    return dataView(this.read(2)).getInt16(0, true);
+    return dataView(this.readView(2)).getInt16(0, true);
   }
 
   ReadInt32(): number {
-    return dataView(this.read(4)).getInt32(0, true);
+    return dataView(this.readView(4)).getInt32(0, true);
   }
 
   ReadUint8(): number {
-    return dataView(this.read(1)).getUint8(0);
+    return dataView(this.readView(1)).getUint8(0);
   }
 
   ReadUint16(): number {
-    return dataView(this.read(2)).getUint16(0, true);
+    return dataView(this.readView(2)).getUint16(0, true);
   }
 
   ReadUint32(): number {
-    return dataView(this.read(4)).getUint32(0, true);
+    return dataView(this.readView(4)).getUint32(0, true);
   }
 
   ReadSingle(): number {
-    return dataView(this.read(4)).getFloat32(0, true);
+    return dataView(this.readView(4)).getFloat32(0, true);
   }
 
   ReadDouble(): number {
-    return dataView(this.read(8)).getFloat64(0, true);
+    return dataView(this.readView(8)).getFloat64(0, true);
   }
 
   ReadUint8Array(count: number): Uint8Array {
-    // Copy so callers never hold a view into a reader's backing store.
-    return this.read(count).slice();
+    // `read` already returns an independent copy.
+    return this.read(count);
   }
 
   ReadUint16Array(count: number): Uint16Array {
-    const bytes = this.read(count * 2);
+    if (count <= 0) return new Uint16Array(0);
+    // Size the output from the bytes actually available so a short/tail read
+    // returns a shorter array instead of a zero-padded one, and a corrupt or
+    // attacker-controlled `count` cannot force an unbounded allocation.
+    const bytes = this.readView(count * 2);
+    const n = Math.floor(bytes.byteLength / 2);
     const view = dataView(bytes);
-    const out = new Uint16Array(count);
+    const out = new Uint16Array(n);
     // Alignment-safe, little-endian element copy (issue #5).
-    const n = Math.min(count, Math.floor(bytes.byteLength / 2));
     for (let i = 0; i < n; i++) {
       out[i] = view.getUint16(i * 2, true);
     }
@@ -146,11 +161,15 @@ export abstract class ReaderBase implements Reader {
   }
 
   ReadUint32Array(count: number): Uint32Array {
-    const bytes = this.read(count * 4);
+    if (count <= 0) return new Uint32Array(0);
+    // Size the output from the bytes actually available so a short/tail read
+    // returns a shorter array instead of a zero-padded one, and a corrupt or
+    // attacker-controlled `count` cannot force an unbounded allocation.
+    const bytes = this.readView(count * 4);
+    const n = Math.floor(bytes.byteLength / 4);
     const view = dataView(bytes);
-    const out = new Uint32Array(count);
+    const out = new Uint32Array(n);
     // Alignment-safe, little-endian element copy (issue #5).
-    const n = Math.min(count, Math.floor(bytes.byteLength / 4));
     for (let i = 0; i < n; i++) {
       out[i] = view.getUint32(i * 4, true);
     }

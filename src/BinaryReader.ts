@@ -54,7 +54,7 @@ export default class BinaryReader extends ReaderBase {
    * `Uint8Array` (issue #4); the view may sit at a non-zero `byteOffset`, which
    * is why `ReaderBase` always bounds its `DataView`s to the view (issue #7).
    */
-  read(count: number): Uint8Array {
+  protected readView(count: number): Uint8Array {
     const start = this.position;
     const offset = Math.min(start, this.buffer.byteLength);
     const end = Math.min(start + count, this.buffer.byteLength);
