@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import BinaryReader from './BinaryReader.js';
 import SeekableFileReader from './node/SeekableFileReader.js';
+import { DatReader } from './node/dat/DatReader.js';
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);
@@ -128,6 +129,27 @@ test('SeekableFileReader.ReadString matches BinaryReader.ReadString over the sam
     expect(binaryReader.position).toBe(encoded.length);
 
     fileReader.close();
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('DatReader.read seeks to the sector and reads a single block', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'libac-'));
+  const file = join(dir, 'sector.bin');
+
+  try {
+    // [4 bytes padding][4-byte next-address][5-byte payload]
+    writeFileSync(file, Buffer.from([9, 9, 9, 9, 0, 0, 0, 0, 10, 20, 30, 40, 50]));
+
+    const reader = new SeekableFileReader(file);
+    const datReader = new DatReader(reader);
+    const out = datReader.read(4, 5, 100);
+
+    expect(Array.from(out)).toEqual([10, 20, 30, 40, 50]);
+    expect(reader.position).toBe(13);
+
+    reader.close();
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
