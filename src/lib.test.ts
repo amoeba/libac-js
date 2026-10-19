@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import BinaryReader from './BinaryReader.js';
 import SeekableFileReader from './node/SeekableFileReader.js';
+import { DatReader } from './node/dat/DatReader.js';
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);
@@ -128,6 +129,54 @@ test('SeekableFileReader.ReadString matches BinaryReader.ReadString over the sam
     expect(binaryReader.position).toBe(encoded.length);
 
     fileReader.close();
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('DatReader.read seeks to the sector and reads a single block', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'libac-'));
+  const file = join(dir, 'sector.bin');
+
+  try {
+    // [4 bytes padding][4-byte next-address][5-byte payload]
+    writeFileSync(file, Buffer.from([9, 9, 9, 9, 0, 0, 0, 0, 10, 20, 30, 40, 50]));
+
+    const reader = new SeekableFileReader(file);
+    const datReader = new DatReader(reader);
+    const out = datReader.read(4, 5, 100);
+
+    expect(Array.from(out)).toEqual([10, 20, 30, 40, 50]);
+    expect(reader.position).toBe(13);
+
+    reader.close();
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('DatReader.read walks chained sectors when size >= blockSize (#8)', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'libac-'));
+  const file = join(dir, 'chained.bin');
+
+  try {
+    // blockSize = 8: each sector is [4-byte next-address][4-byte data].
+    //   sector 0 @0: next -> 8, data [0xAA,0xBB,0xCC,0xDD]
+    //   sector 1 @8: next -> 0, data [0x11,0x22,0x33,0x44]
+    writeFileSync(file, Buffer.from([
+      8, 0, 0, 0, 0xaa, 0xbb, 0xcc, 0xdd,
+      0, 0, 0, 0, 0x11, 0x22, 0x33, 0x44,
+    ]));
+
+    const reader = new SeekableFileReader(file);
+    const datReader = new DatReader(reader);
+    // size === blockSize forces the else branch (and thus seek(nextAddress)).
+    const out = datReader.read(0, 8, 8);
+
+    expect(Array.from(out)).toEqual([0xaa, 0xbb, 0xcc, 0xdd, 0x11, 0x22, 0x33, 0x44]);
+    expect(reader.position).toBe(16);
+
+    reader.close();
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
