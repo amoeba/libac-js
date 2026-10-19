@@ -1,5 +1,6 @@
 export { default as BinaryReader, toExactArrayBuffer } from "./BinaryReader.js";
 export type { Quaternion, Vec3 } from "./BinaryReader.js";
+export type { Reader } from "./Reader.js";
 export { DatFile } from "./dat/DatFile.js";
 export { DatFileType, getFileType, getFileTypeName } from "./dat/DatFileType.js";
 export { GfxObj, GfxObjFlags } from "./dat/file_types/GfxObj.js";
