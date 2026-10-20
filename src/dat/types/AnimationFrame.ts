@@ -52,12 +52,16 @@ export interface AnimationHook {
   partIndex?: number;
   /** ReplaceObject replacement GfxObj DataID. */
   partId?: number;
-  /** Scalar payload: Ethereal, NoDraw, SetLight. */
+  /** Scalar flag: Ethereal (`int`), NoDraw (`uint`), SetLight (LightsOn `int`). */
   value?: number;
   /** Triple-float payload: Luminous/Diffuse/Transparent colour or SetOmega. */
   vector?: Vec3;
-  /** Two-float payload: Scale (x, y) or TextureVelocity. */
-  scale?: [number, number];
+  /** Scale: final scale and the seconds over which to reach it. */
+  scale?: { end: number; time: number };
+  /** TextureVelocity: U/V texture scroll speeds. */
+  velocity?: { u: number; v: number };
+  /** SoundTweaked: priority, probability and volume in addition to `id`. */
+  sound?: { priority: number; probability: number; volume: number };
   /** CallPES pause duration. */
   pause?: number;
   /** CreateParticle embedded spawn frame. */
@@ -65,8 +69,16 @@ export interface AnimationHook {
   /** CreateParticle emitter info + instance ids. */
   emitterInfoId?: number;
   emitterId?: number;
-  /** Attack hook: part index + 6 AttackCone floats. */
-  attack?: { partIndex: number; cone: number[] };
+  /** Attack: part index plus the six AttackCone floats. */
+  attack?: {
+    partIndex: number;
+    leftX: number;
+    leftY: number;
+    rightX: number;
+    rightY: number;
+    radius: number;
+    height: number;
+  };
 }
 
 /**
@@ -127,11 +139,16 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
       break;
 
     case AnimationHookType.Attack: {
-      // u32 part + AttackCone (6 × f32).
-      const partIndex = reader.ReadUint32();
-      const cone: number[] = [];
-      for (let i = 0; i < 6; i++) cone.push(reader.ReadSingle());
-      hook.attack = { partIndex, cone };
+      // u32 part + AttackCone: LeftX, LeftY, RightX, RightY, Radius, Height.
+      hook.attack = {
+        partIndex: reader.ReadUint32(),
+        leftX: reader.ReadSingle(),
+        leftY: reader.ReadSingle(),
+        rightX: reader.ReadSingle(),
+        rightY: reader.ReadSingle(),
+        radius: reader.ReadSingle(),
+        height: reader.ReadSingle(),
+      };
       break;
     }
 
@@ -146,9 +163,12 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
     }
 
     case AnimationHookType.Ethereal:
-    case AnimationHookType.NoDraw:
     case AnimationHookType.SetLight:
       hook.value = reader.ReadInt32();
+      break;
+
+    case AnimationHookType.NoDraw:
+      hook.value = reader.ReadUint32();
       break;
 
     case AnimationHookType.TransparentPart:
@@ -165,7 +185,7 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
       break;
 
     case AnimationHookType.Scale:
-      hook.scale = [reader.ReadSingle(), reader.ReadSingle()];
+      hook.scale = { end: reader.ReadSingle(), time: reader.ReadSingle() };
       break;
 
     case AnimationHookType.CreateParticle:
@@ -190,7 +210,11 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
 
     case AnimationHookType.SoundTweaked:
       hook.id = reader.ReadUint32();
-      hook.vector = readTriple(reader);
+      hook.sound = {
+        priority: reader.ReadSingle(),
+        probability: reader.ReadSingle(),
+        volume: reader.ReadSingle(),
+      };
       break;
 
     case AnimationHookType.SetOmega:
@@ -198,12 +222,12 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
       break;
 
     case AnimationHookType.TextureVelocity:
-      hook.scale = [reader.ReadSingle(), reader.ReadSingle()];
+      hook.velocity = { u: reader.ReadSingle(), v: reader.ReadSingle() };
       break;
 
     case AnimationHookType.TextureVelocityPart:
       hook.partIndex = reader.ReadUint32();
-      hook.scale = [reader.ReadSingle(), reader.ReadSingle()];
+      hook.velocity = { u: reader.ReadSingle(), v: reader.ReadSingle() };
       break;
 
     case AnimationHookType.NoOp:

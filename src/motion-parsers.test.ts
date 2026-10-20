@@ -270,3 +270,61 @@ test("ReplaceObject applies the GfxObj DataID type tag when the high word is abs
   );
   expect(readAnimationFrame(highWordReader, 0).hooks[0].partId).toBe(0x02000001);
 });
+
+test("hook payload fields follow ACE AnimationHooks semantics", () => {
+  const out: number[] = [];
+  // No part frames; the first u32 is the hook count.
+  pushU32(out, 5); // five hooks
+
+  // Scale: End + Time.
+  pushU32(out, AnimationHookType.Scale);
+  pushU32(out, 0);
+  pushF32(out, 2.5);
+  pushF32(out, 1.5);
+
+  // TextureVelocity: USpeed + VSpeed.
+  pushU32(out, AnimationHookType.TextureVelocity);
+  pushU32(out, 0);
+  pushF32(out, 0.25);
+  pushF32(out, -0.5);
+
+  // SoundTweaked: sound id + Priority + Probability + Volume.
+  pushU32(out, AnimationHookType.SoundTweaked);
+  pushU32(out, 0);
+  pushU32(out, 0x123);
+  pushF32(out, 0.8);
+  pushF32(out, 0.5);
+  pushF32(out, 1);
+
+  // Attack: AttackCone (part + LeftX/Y, RightX/Y, Radius, Height).
+  pushU32(out, AnimationHookType.Attack);
+  pushU32(out, 0);
+  pushU32(out, 2);
+  for (let i = 1; i <= 6; i++) pushF32(out, i);
+
+  // NoDraw is a u32 flag.
+  pushU32(out, AnimationHookType.NoDraw);
+  pushU32(out, 0);
+  pushU32(out, 1);
+
+  const reader = new BinaryReader(toExactArrayBuffer(Uint8Array.from(out)));
+  const hooks = readAnimationFrame(reader, 0).hooks;
+  expect(reader.remaining).toBe(0);
+
+  expect(hooks[0].scale).toEqual({ end: 2.5, time: 1.5 });
+  expect(hooks[1].velocity).toEqual({ u: 0.25, v: -0.5 });
+  expect(hooks[2].id).toBe(0x123);
+  expect(hooks[2].sound?.priority).toBeCloseTo(0.8);
+  expect(hooks[2].sound?.probability).toBeCloseTo(0.5);
+  expect(hooks[2].sound?.volume).toBe(1);
+  expect(hooks[3].attack).toEqual({
+    partIndex: 2,
+    leftX: 1,
+    leftY: 2,
+    rightX: 3,
+    rightY: 4,
+    radius: 5,
+    height: 6,
+  });
+  expect(hooks[4].value).toBe(1);
+});
