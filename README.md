@@ -6,7 +6,9 @@ HTTP responses.
 - Low-level binary reader (`BinaryReader`) and DAT models/types.
 - Parsers for portal and cell DAT file types: `GfxObj`, `Setup`, `Texture`,
   `Surface`, `SurfaceTexture`, `Palette`, `Region`, `Scene`, `CellLandblock`,
-  `LandblockInfo`, `EnvCell`, `Environment`.
+  `LandblockInfo`, `EnvCell`, `Environment`, `MotionTable`, `Animation`.
+- Length-correct animation hooks (`AnimationFrame`, `readAnimationHook`, all 27
+  `AnimationHookType` payloads), reusable by `PhysicsScript` (0x33).
 - `multipart/mixed` HTTP response parsing (`extractBoundary`, `parseMultipartMixed`).
 - Node-only, filesystem-backed DAT access (`SeekableFileReader`, `DatDatabase`, `DatReader`).
 
@@ -23,7 +25,7 @@ browser-safe (universal) build is included for bundlers.
 
 | Entrypoint | Environment | What it includes |
 | --- | --- | --- |
-| `@amoeba/libac` | Browser / universal | Everything that is safe in any JS runtime: `BinaryReader`, `DatFile`/`DatFileType`, `GfxObj`, `Setup`, `SpellTable`, `Texture`, the `dat/types` models, the unpackables, and the multipart helpers. No Node built-ins, `Buffer`, or `fs`. |
+| `@amoeba/libac` | Browser / universal | Everything that is safe in any JS runtime: `BinaryReader`, `DatFile`/`DatFileType`, `GfxObj`, `Setup`, `SpellTable`, `Texture`, `MotionTable`, `Animation`, the `dat/types` models, the unpackables, and the multipart helpers. No Node built-ins, `Buffer`, or `fs`. |
 | `@amoeba/libac/node` | Node.js | The entire universal API **plus** the filesystem-backed DAT reading: `SeekableFileReader`, `DatDatabase`, `DatReader`. |
 
 The `/node` entry re-exports everything from the root entry, so in Node you can

@@ -36,7 +36,14 @@ export type {
 } from "./dat/file_types/Region.js";
 export { Scene } from "./dat/file_types/Scene.js";
 export type { ObjectDesc } from "./dat/file_types/Scene.js";
-export { AnimationFrame } from "./dat/types/AnimationFrame.js";
+export { MotionTable, MotionFlags, motionKey } from "./dat/file_types/MotionTable.js";
+export type { AnimData, MotionData } from "./dat/file_types/MotionTable.js";
+export { Animation, AnimationFlags } from "./dat/file_types/Animation.js";
+export {
+  AnimationFrame,
+  AnimationHookType,
+  readAnimationHook,
+} from "./dat/types/AnimationFrame.js";
 export type { AnimationHook } from "./dat/types/AnimationFrame.js";
 export { readAnimationFrame } from "./dat/types/AnimationFrame.js";
 export { readFrame } from "./dat/types/Frame.js";
