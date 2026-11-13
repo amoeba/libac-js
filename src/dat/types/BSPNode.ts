@@ -5,12 +5,13 @@ import { readSphere, Sphere } from "./Sphere.js";
 /** BSP tree categories — determines which fields appear in each node. */
 export type BSPTreeType = "Physics" | "Drawing" | "Cell";
 
-/** A parsed BSP node. We only retain InPolys (polygon IDs already held in the
- * GfxObj's Polygons dictionary) — the tree structure itself is not needed for
- * Three.js rendering, but we must consume it to advance the reader. */
+/** Parsed BSP node. CellStruct exposes its Cell BSP tree for callers that need
+ * cell-local containment; parsing the tree does not implement a query policy. */
 export interface BSPNode {
   type: string;
   splittingPlane?: Plane;
+  /** Present on LEAF nodes (including Cell BSP leaves). */
+  leafIndex?: number;
   posNode?: BSPNode;
   negNode?: BSPNode;
   sphere?: Sphere;
@@ -33,7 +34,10 @@ function skipPortalPoly(reader: BinaryReader): void {
 /** Recursively parse a BSP node tree and collect InPolys.
 
  * Mirrors BSPNode::ReadNode / BSPNode::Unpack / BSPLeaf::Unpack /
- * BSPPortal::Unpack from the reference C# implementation.
+ * BSPPortal::Unpack from ACEmulator/ACViewer at c5c54fb3318cd956a330a920c105a0109aaeb3fd
+ * (ACE/Source/ACE.DatLoader/Entity). Cell containment semantics live in the
+ * corresponding Physics/BSP/BSPNode.point_inside_cell_bsp implementation;
+ * retaining the tree here does not itself implement that query.
  */
 export function readBSPNode(
   reader: BinaryReader,
@@ -44,7 +48,7 @@ export function readBSPNode(
 
   if (type === "LEAF") {
     // LeafIndex
-    reader.ReadInt32();
+    node.leafIndex = reader.ReadInt32();
 
     if (treeType === "Physics") {
       reader.ReadInt32(); // Solid
@@ -60,7 +64,7 @@ export function readBSPNode(
 
   if (type === "PORT") {
     // BSPPortal: tag + Plane + PosNode + NegNode + [Drawing: Sphere + polys + portals]
-    readPlane(reader); // SplittingPlane
+    node.splittingPlane = readPlane(reader);
     node.posNode = readBSPNode(reader, treeType);
     node.negNode = readBSPNode(reader, treeType);
 
