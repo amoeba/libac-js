@@ -1,6 +1,6 @@
 import BinaryReader from "../../BinaryReader.js";
 import { Unpackable, readItem } from "../../Unpackable.js";
-import { readBSPNode } from "./BSPNode.js";
+import { readBSPNode, type BSPNode } from "./BSPNode.js";
 import { Polygon } from "./Polygon.js";
 import { VertexArray } from "./VertexArray.js";
 
@@ -10,6 +10,8 @@ export class CellStruct implements Unpackable {
   polygons = new Map<number, Polygon>();
   /** Polygon IDs used as openings to adjacent EnvCells, not solid surfaces. */
   portalPolygons = new Set<number>();
+  /** Cell-containment BSP in structure-local coordinates, when present. */
+  cellBsp?: BSPNode;
 
   unpack(reader: BinaryReader): void {
     const numPolygons = reader.ReadUint32();
@@ -26,7 +28,10 @@ export class CellStruct implements Unpackable {
     }
     if (reader.position % 4 !== 0) reader.position += 4 - (reader.position % 4);
 
-    readBSPNode(reader, "Cell");
+    // Retain the Cell tree rather than only consuming it. Physics uses these
+    // local splitting planes for point-in-cell tests. See the pinned ACE
+    // implementation: Physics/BSP/BSPNode.point_inside_cell_bsp.
+    this.cellBsp = readBSPNode(reader, "Cell");
 
     for (let i = 0; i < numPhysicsPolygons; i++) {
       reader.ReadUint16();
