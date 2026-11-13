@@ -83,3 +83,26 @@ db.read(); // reads the header and root directory
 
 db.close();
 ```
+
+## Releasing
+
+Stable releases are published by `.github/workflows/release.yml` when a `v*` tag
+is pushed. The tag must match the version in `package.json` (for example,
+`v0.2.4` for version `0.2.4`). The workflow runs `npm run verify`, publishes to
+npm, and then creates a GitHub release with generated release notes.
+
+The npm package's trusted publisher must allow direct publishing from GitHub
+owner `amoeba`, repository `libac-js`, workflow `release.yml`, with no environment.
+No npm token secret is needed.
+
+To release, update `package.json` and `package-lock.json` to the intended version,
+merge those changes and the release workflow into `main`, then tag that commit:
+
+```sh
+git switch main
+git pull --ff-only
+git tag v0.2.4
+git push origin v0.2.4
+```
+
+Use the intended version in place of `0.2.4`; npm versions cannot be republished.
