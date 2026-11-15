@@ -12,6 +12,8 @@ export class CellStruct implements Unpackable {
   portalPolygons = new Set<number>();
   /** Cell-containment BSP in structure-local coordinates, when present. */
   cellBsp?: BSPNode;
+  /** Drawing BSP, including its portal/polygon pairs, when present. */
+  drawingBsp?: BSPNode;
 
   unpack(reader: BinaryReader): void {
     const numPolygons = reader.ReadUint32();
@@ -39,7 +41,7 @@ export class CellStruct implements Unpackable {
     }
     readBSPNode(reader, "Physics");
 
-    if (reader.ReadUint32() !== 0) readBSPNode(reader, "Drawing");
+    if (reader.ReadUint32() !== 0) this.drawingBsp = readBSPNode(reader, "Drawing");
     if (reader.position % 4 !== 0) reader.position += 4 - (reader.position % 4);
   }
 

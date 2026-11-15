@@ -105,6 +105,7 @@ test("parse real GfxObj 0x010008AB", () => {
   expect(gfxobj.hasDrawing).toBe(true);
   expect(gfxobj.vertexArray).toBeDefined();
   expect(gfxobj.polygons.size).toBeGreaterThan(0);
+  expect(gfxobj.drawingBsp).toBeDefined();
 });
 
 test("GfxObj vertex array has keyed vertices", () => {

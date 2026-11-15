@@ -5,8 +5,14 @@ import { readSphere, Sphere } from "./Sphere.js";
 /** BSP tree categories — determines which fields appear in each node. */
 export type BSPTreeType = "Physics" | "Drawing" | "Cell";
 
-/** Parsed BSP node. CellStruct exposes its Cell BSP tree for callers that need
- * cell-local containment; parsing the tree does not implement a query policy. */
+/** A Drawing BSP PORT node's opening link and associated polygon. */
+export interface BSPPortalPoly {
+  portalIndex: number;
+  polygonId: number;
+}
+
+/** Parsed BSP node. CellStruct exposes its Cell and Drawing BSP trees; parsing
+ * them retains topology but does not implement a query or culling policy. */
 export interface BSPNode {
   type: string;
   splittingPlane?: Plane;
@@ -16,6 +22,8 @@ export interface BSPNode {
   negNode?: BSPNode;
   sphere?: Sphere;
   inPolys: number[];
+  /** Present on Drawing PORT nodes; pairs read from BSPPortal.InPortals. */
+  inPortals?: BSPPortalPoly[];
 }
 
 /** Read a 4-byte ASCII type tag stored in little-endian (reversed) order. */
@@ -24,11 +32,10 @@ function readNodeType(reader: BinaryReader): string {
   return String.fromCharCode(bytes[3], bytes[2], bytes[1], bytes[0]);
 }
 
-/** Skip a PortalPoly (DrawingBSPTree PORT nodes). Each is two int16s:
+/** Read a PortalPoly (DrawingBSPTree PORT nodes), two int16s:
  * PortalIndex + PolygonId (see ACE PortalPoly.cs). */
-function skipPortalPoly(reader: BinaryReader): void {
-  reader.ReadInt16(); // PortalIndex
-  reader.ReadInt16(); // PolygonId
+function readPortalPoly(reader: BinaryReader): BSPPortalPoly {
+  return { portalIndex: reader.ReadInt16(), polygonId: reader.ReadInt16() };
 }
 
 /** Recursively parse a BSP node tree and collect InPolys.
@@ -75,8 +82,9 @@ export function readBSPNode(
       for (let i = 0; i < numPolys; i++) {
         node.inPolys.push(reader.ReadUint16());
       }
+      node.inPortals = [];
       for (let i = 0; i < numPortals; i++) {
-        skipPortalPoly(reader);
+        node.inPortals.push(readPortalPoly(reader));
       }
     }
     // For Cell/Physics, PORT nodes have no additional data after children
