@@ -3,7 +3,7 @@ import { readItem } from "../../Unpackable.js";
 import { SWVertex } from "../types/SWVertex.js";
 import { Polygon } from "../types/Polygon.js";
 import { VertexArray } from "../types/VertexArray.js";
-import { readBSPNode, BSPTreeType } from "../types/BSPNode.js";
+import { readBSPNode, type BSPNode, type BSPTreeType } from "../types/BSPNode.js";
 
 /** GfxObj flags (AC `GfxObjFlags`). */
 export enum GfxObjFlags {
@@ -37,6 +37,9 @@ export class GfxObj {
 
   /** Drawing polygons (keyed by ushort) — only present if HasDrawing. */
   polygons: Map<number, Polygon> = new Map();
+
+  /** Drawing BSP including its portal/polygon pairs, when present. */
+  drawingBsp?: BSPNode;
 
   /** Degrade DID — only present if HasDIDDegrade. */
   didDegrade: number = 0;
@@ -89,9 +92,9 @@ export class GfxObj {
         const poly = readItem(reader, Polygon);
         gfxobj.polygons.set(key, poly);
       }
-      // Parse (and discard) the DrawingBSPTree — we use the Polygons
-      // dictionary directly for rendering.
-      readBSPNode(reader, "Drawing");
+      // Keep the Drawing BSP's portal/polygon pairs for exterior visibility
+      // consumers. Geometry rendering can continue to use the Polygons map.
+      gfxobj.drawingBsp = readBSPNode(reader, "Drawing");
     }
 
     // DIDDegrade (if HasDIDDegrade)
