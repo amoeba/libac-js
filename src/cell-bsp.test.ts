@@ -26,6 +26,12 @@ function appendU32(bytes: number[], value: number): void {
   bytes.push(...new Uint8Array(buffer));
 }
 
+function appendI16(bytes: number[], value: number): void {
+  const buffer = new ArrayBuffer(2);
+  new DataView(buffer).setInt16(0, value, true);
+  bytes.push(...new Uint8Array(buffer));
+}
+
 function appendF32(bytes: number[], value: number): void {
   const buffer = new ArrayBuffer(4);
   new DataView(buffer).setFloat32(0, value, true);
@@ -36,7 +42,7 @@ function appendPlane(bytes: number[], normal: [number, number, number], distance
   for (const value of [...normal, distance]) appendF32(bytes, value);
 }
 
-function appendCellStruct(bytes: number[], rootIndex: number): void {
+function appendCellStruct(bytes: number[], rootIndex: number, includeDrawingPortals = false): void {
   // Empty polygon/physics-polygon/portal counts and empty VertexArray.
   for (const value of [0, 0, 0, 0, 0]) appendU32(bytes, value);
   // Cell tree: a PORT's retained plane and two LEAF children.
@@ -52,8 +58,23 @@ function appendCellStruct(bytes: number[], rootIndex: number): void {
   appendU32(bytes, 0);
   for (const value of [0, 0, 0, 0]) appendF32(bytes, value);
   appendU32(bytes, 0);
-  // No Drawing BSP.
-  appendU32(bytes, 0);
+  if (includeDrawingPortals) {
+    appendU32(bytes, 1);
+    appendTag(bytes, "PORT");
+    appendPlane(bytes, [0, 0, 1], 0);
+    appendTag(bytes, "LEAF");
+    appendU32(bytes, rootIndex + 3);
+    appendTag(bytes, "LEAF");
+    appendU32(bytes, rootIndex + 4);
+    for (const value of [0, 0, 0, 0]) appendF32(bytes, value); // Sphere
+    appendU32(bytes, 1); // InPolys count
+    appendU32(bytes, 2); // InPortals count
+    appendI16(bytes, 77); // InPolys[0]
+    appendI16(bytes, 4); appendI16(bytes, 31); // PortalIndex, PolygonId
+    appendI16(bytes, 9); appendI16(bytes, 52);
+  } else {
+    appendU32(bytes, 0);
+  }
   while (bytes.length % 4) bytes.push(0);
 }
 
@@ -62,7 +83,7 @@ function syntheticEnvironment(): Uint8Array {
   appendU32(bytes, 0x0d000001);
   appendU32(bytes, 2);
   appendU32(bytes, 0);
-  appendCellStruct(bytes, 10);
+  appendCellStruct(bytes, 10, true);
   appendU32(bytes, 1);
   appendCellStruct(bytes, 20);
   return Uint8Array.from(bytes);
@@ -90,6 +111,13 @@ test("CellStruct retains Cell BSP PORT planes and leaf indices without shifting 
   expect(second.cellBsp?.posNode?.leafIndex).toBe(20);
   expect(reader.position).toBe(data.byteLength);
   expect(Environment.fromBuffer(data).cells.get(1)?.cellBsp?.negNode?.leafIndex).toBe(21);
+  const drawing = Environment.fromBuffer(data).cells.get(0)?.drawingBsp;
+  expect(drawing?.type).toBe("PORT");
+  expect(drawing?.inPolys).toEqual([77]);
+  expect(drawing?.inPortals).toEqual([
+    { portalIndex: 4, polygonId: 31 },
+    { portalIndex: 9, polygonId: 52 },
+  ]);
 });
 
 test("real Meeting Hall Environment retains its Cell BSP plane chain", () => {
