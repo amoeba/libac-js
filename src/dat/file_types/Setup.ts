@@ -14,6 +14,22 @@ export interface SetupParts {
   parts: number[];
 }
 
+/** Narrow bounds for callers projecting Setup IDs and part lists. */
+export interface SetupPartsOptions {
+  /** Validate this identity before checking the caller's part-count limit. */
+  expectedId?: number;
+  /** Caller-specific cap; the native parser otherwise bounds only by input bytes. */
+  maxParts?: number;
+}
+
+/** A valid Setup exceeded a caller-selected projection cap. */
+export class SetupPartsLimitError extends RangeError {
+  constructor(readonly numParts: number, readonly maxParts: number) {
+    super(`Setup: part count ${numParts} exceeds limit ${maxParts}`);
+    this.name = "SetupPartsLimitError";
+  }
+}
+
 /** Setup flags (AC `SetupFlags`). */
 export enum SetupFlags {
   HasParent = 0x01,
@@ -192,10 +208,10 @@ export class Setup {
 
   /**
    * Read the Setup header and part list without traversing model sections.
-   * Remaining bytes are deliberately ignored. Pass `maxParts` when the caller
-   * has a narrower policy; the native parser only bounds the array by bytes.
+   * Remaining bytes are deliberately ignored. Callers can validate an identity
+   * and impose a narrower cap without reimplementing this projection.
    */
-  static readParts(data: Uint8Array | ArrayBuffer, maxParts?: number): SetupParts {
+  static readParts(data: Uint8Array | ArrayBuffer, options: SetupPartsOptions = {}): SetupParts {
     const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
     const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
     if (bytes.byteLength < 12) throw new Error("Setup: truncated header");
@@ -203,8 +219,14 @@ export class Setup {
     const flags = view.getUint32(4, true);
     const numParts = view.getUint32(8, true);
     if (id >>> 24 !== 0x02) throw new Error(`Setup: invalid file id 0x${id.toString(16)}`);
-    if (maxParts !== undefined && numParts > maxParts) {
-      throw new Error(`Setup: part count ${numParts} exceeds limit ${maxParts}`);
+    if (options.expectedId !== undefined && id !== options.expectedId) {
+      throw new Error(`Setup: invalid/mismatched id (expected 0x${options.expectedId.toString(16)}, found 0x${id.toString(16)})`);
+    }
+    if (options.maxParts !== undefined) {
+      if (!Number.isSafeInteger(options.maxParts) || options.maxParts < 0) {
+        throw new RangeError("Setup: maxParts must be a nonnegative safe integer");
+      }
+      if (numParts > options.maxParts) throw new SetupPartsLimitError(numParts, options.maxParts);
     }
     if (numParts > Math.floor((bytes.byteLength - 12) / 4)) throw new Error("Setup: truncated parts");
     const parts = new Array<number>(numParts);
