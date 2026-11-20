@@ -9,6 +9,10 @@ HTTP responses.
   `LandblockInfo`, `EnvCell`, `Environment`, `MotionTable`, `Animation`.
 - Length-correct animation hooks (`AnimationFrame`, `readAnimationHook`, all 27
   `AnimationHookType` payloads), reusable by `PhysicsScript` (0x33).
+- Native `ObjDesc`, CharGen and clothing records, particle scripts, console
+  `RenderTexture`, bounded Setup projections, and Region GameTime/SkyDesc data.
+- A separate `@amoeba/libac/pixels` entrypoint for pure RGBA decoding, palette
+  merging, and terrain pixel compositing. It shares the root `SurfacePixelFormat` enum.
 - `multipart/mixed` HTTP response parsing (`extractBoundary`, `parseMultipartMixed`).
 - Node-only, filesystem-backed DAT access (`SeekableFileReader`, `DatDatabase`, `DatReader`).
 
@@ -27,6 +31,7 @@ browser-safe (universal) build is included for bundlers.
 | --- | --- | --- |
 | `@amoeba/libac` | Browser / universal | Everything that is safe in any JS runtime: `BinaryReader`, `DatFile`/`DatFileType`, `GfxObj`, `Setup`, `SpellTable`, `Texture`, `MotionTable`, `Animation`, the `dat/types` models, the unpackables, and the multipart helpers. No Node built-ins, `Buffer`, or `fs`. |
 | `@amoeba/libac/node` | Node.js | The entire universal API **plus** the filesystem-backed DAT reading: `SeekableFileReader`, `DatDatabase`, `DatReader`. |
+| `@amoeba/libac/pixels` | Browser / universal | Pure pixel decoding and terrain compositing. No Three.js or Node built-ins. |
 
 The `/node` entry re-exports everything from the root entry, so in Node you can
 import your whole API from `@amoeba/libac/node`.
@@ -35,6 +40,15 @@ import your whole API from `@amoeba/libac/node`.
 > HTTP-Range-based reader in a future release. In the browser you can still
 > parse in-memory buffers (`GfxObj.fromBuffer`, `Setup.fromBuffer`) and the
 > multipart helpers.
+
+The pixel subpath is opt-in:
+
+```ts
+import { decodePixelData, mergePalette } from "@amoeba/libac/pixels";
+import { SurfacePixelFormat } from "@amoeba/libac";
+
+const rgba = decodePixelData({ format: SurfacePixelFormat.P8, width, height, bytes }, palette);
+```
 
 ## Usage
 

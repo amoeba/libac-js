@@ -63,12 +63,39 @@ export interface LandSurf {
   texMerge: TexMerge;
 }
 
+export interface RegionGameTime {
+  zeroTimeOfYear: number;
+  zeroYear: number;
+  dayLength: number;
+  daysPerYear: number;
+  yearSpec: string;
+  timesOfDay: Array<{ start: number; isNight: number; name: string }>;
+  daysOfWeek: string[];
+  seasons: Array<{ startDate: number; name: string }>;
+}
+export interface SkyObject {
+  beginTime: number; endTime: number; beginAngle: number; endAngle: number;
+  texVelocityX: number; texVelocityY: number; gfxId: number; pesId: number; properties: number;
+}
+export interface SkyReplacement {
+  objectIndex: number; gfxId: number; rotate: number; transparent: number;
+  luminosity: number; maxBright: number;
+}
+export interface SkyTime {
+  begin: number; dirBright: number; dirHeading: number; dirPitch: number; dirColor: number;
+  ambBright: number; ambColor: number; minFog: number; maxFog: number;
+  fogColor: number; fog: number; replacements: SkyReplacement[];
+}
+export interface SkyDay { chance: number; name: string; objects: SkyObject[]; times: SkyTime[] }
+export interface SkyDesc { tickSize: number; lightTickSize: number; days: SkyDay[] }
+/** Compatibility projection for consumers that need the Region sky prefix only. */
+export interface RegionSky extends SkyDesc { dayLength: number }
+
 /**
  * portal-DAT Region (0x13000000, a singleton). We keep the pieces needed to
  * texture the landscape (the non-linear height table plus the terrain type and
  * tex-merge tables) and to generate procedural scenery (the terrain scene-type
- * table and the SceneDesc tables). The sky/sound sections are parsed only to
- * stay aligned; their contents are discarded.
+ * table and the SceneDesc tables). Region owns its authored GameTime and SkyDesc.
  */
 export class Region {
   id = 0;
@@ -78,6 +105,8 @@ export class Region {
   partsMask = 0;
   /** 256-entry lookup: height byte -> world Z (see CellLandblock). */
   landHeightTable: number[] = [];
+  gameTime!: RegionGameTime;
+  sky?: SkyDesc;
   terrainTypes: TerrainType[] = [];
   /** Procedural scenery tables (ACE SceneDesc): terrain scene-type -> Scene ids. */
   sceneTypes: SceneType[] = [];
@@ -86,17 +115,7 @@ export class Region {
   static fromBuffer(data: Uint8Array | ArrayBuffer): Region {
     const reader = new BinaryReader(data);
     const region = new Region();
-    region.id = reader.ReadUint32();
-    region.regionNumber = reader.ReadUint32();
-    region.version = reader.ReadUint32();
-    region.regionName = reader.ReadPString();
-    reader.AlignBoundary();
-
-    readLandDefs(reader, region);
-    readGameTime(reader);
-
-    region.partsMask = reader.ReadUint32();
-    if ((region.partsMask & 0x10) !== 0) readSkyDesc(reader);
+    readRegionPrefix(reader, region);
     if ((region.partsMask & 0x01) !== 0) readSoundDesc(reader);
     if ((region.partsMask & 0x02) !== 0) readSceneDesc(reader, region);
 
@@ -104,6 +123,31 @@ export class Region {
 
     return region;
   }
+}
+
+/** Parse the Region header through SkyDesc, retaining the historical prefix-only contract. */
+export function readRegionSky(data: Uint8Array | ArrayBuffer): RegionSky {
+  const reader = new BinaryReader(data);
+  const region = new Region();
+  readRegionPrefix(reader, region);
+  return {
+    dayLength: region.gameTime.dayLength,
+    tickSize: region.sky?.tickSize ?? 0,
+    lightTickSize: region.sky?.lightTickSize ?? 0,
+    days: region.sky?.days ?? [],
+  };
+}
+
+function readRegionPrefix(reader: BinaryReader, region: Region): void {
+  region.id = reader.ReadUint32();
+  region.regionNumber = reader.ReadUint32();
+  region.version = reader.ReadUint32();
+  region.regionName = reader.ReadPString();
+  reader.AlignBoundary();
+  readLandDefs(reader, region);
+  region.gameTime = readGameTime(reader);
+  region.partsMask = reader.ReadUint32();
+  if ((region.partsMask & 0x10) !== 0) region.sky = readSkyDesc(reader);
 }
 
 // ─── LandDefs ──────────────────────────────────────────────────────────────
@@ -120,92 +164,93 @@ function readLandDefs(reader: BinaryReader, region: Region): void {
   for (let i = 0; i < 256; i++) region.landHeightTable.push(reader.ReadSingle());
 }
 
-// ─── GameTime (skipped) ────────────────────────────────────────────────────
+// ─── GameTime ──────────────────────────────────────────────────────────────
 
-function readGameTime(reader: BinaryReader): void {
-  reader.ReadDouble(); // zeroTimeOfYear
-  reader.ReadUint32(); // zeroYear
-  reader.ReadSingle(); // dayLength
-  reader.ReadUint32(); // daysPerYear
-  reader.ReadPString(); // yearSpec
+function readGameTime(reader: BinaryReader): RegionGameTime {
+  const zeroTimeOfYear = reader.ReadDouble();
+  const zeroYear = reader.ReadUint32();
+  const dayLength = reader.ReadSingle();
+  const daysPerYear = reader.ReadUint32();
+  const yearSpec = reader.ReadPString();
   reader.AlignBoundary();
 
-  const timesOfDay = reader.ReadUint32();
-  for (let i = 0; i < timesOfDay; i++) {
-    reader.ReadSingle(); // start
-    reader.ReadUint32(); // isNight
-    reader.ReadPString(); // name
+  const timesOfDay: RegionGameTime["timesOfDay"] = [];
+  const timeCount = reader.ReadUint32();
+  for (let i = 0; i < timeCount; i++) {
+    const start = reader.ReadSingle();
+    const isNight = reader.ReadUint32();
+    const name = reader.ReadPString();
+    reader.AlignBoundary();
+    timesOfDay.push({ start, isNight, name });
+  }
+  const daysOfWeek: string[] = [];
+  const dayCount = reader.ReadUint32();
+  for (let i = 0; i < dayCount; i++) {
+    daysOfWeek.push(reader.ReadPString());
     reader.AlignBoundary();
   }
-
-  const daysOfWeek = reader.ReadUint32();
-  for (let i = 0; i < daysOfWeek; i++) {
-    reader.ReadPString();
+  const seasons: RegionGameTime["seasons"] = [];
+  const seasonCount = reader.ReadUint32();
+  for (let i = 0; i < seasonCount; i++) {
+    const startDate = reader.ReadUint32();
+    const name = reader.ReadPString();
     reader.AlignBoundary();
+    seasons.push({ startDate, name });
   }
-
-  const seasons = reader.ReadUint32();
-  for (let i = 0; i < seasons; i++) {
-    reader.ReadUint32(); // startDate
-    reader.ReadPString(); // name
-    reader.AlignBoundary();
-  }
+  return { zeroTimeOfYear, zeroYear, dayLength, daysPerYear, yearSpec, timesOfDay, daysOfWeek, seasons };
 }
 
-// ─── Sky / Sound / Scene (parsed only to advance the reader) ────────────────
+// ─── Sky / Sound / Scene ───────────────────────────────────────────────────
 
-function readSkyDesc(reader: BinaryReader): void {
-  reader.ReadDouble(); // tickSize
-  reader.ReadDouble(); // lightTickSize
+function readSkyDesc(reader: BinaryReader): SkyDesc {
+  const tickSize = reader.ReadDouble();
+  const lightTickSize = reader.ReadDouble();
   reader.AlignBoundary();
 
+  const days: SkyDay[] = [];
   const dayGroups = reader.ReadUint32();
   for (let g = 0; g < dayGroups; g++) {
-    reader.ReadSingle(); // chanceOfOccur
-    reader.ReadPString(); // dayName
+    const chance = reader.ReadSingle();
+    const name = reader.ReadPString();
     reader.AlignBoundary();
 
+    const objects: SkyObject[] = [];
     const skyObjects = reader.ReadUint32();
     for (let i = 0; i < skyObjects; i++) {
-      reader.ReadSingle(); // beginTime
-      reader.ReadSingle(); // endTime
-      reader.ReadSingle(); // beginAngle
-      reader.ReadSingle(); // endAngle
-      reader.ReadSingle(); // texVelocityX
-      reader.ReadSingle(); // texVelocityY
-      reader.ReadUint32(); // defaultGFXObjectId
-      reader.ReadUint32(); // defaultPESObjectId
-      reader.ReadUint32(); // properties
+      const object: SkyObject = {
+        beginTime: reader.ReadSingle(), endTime: reader.ReadSingle(),
+        beginAngle: reader.ReadSingle(), endAngle: reader.ReadSingle(),
+        texVelocityX: reader.ReadSingle(), texVelocityY: reader.ReadSingle(),
+        gfxId: reader.ReadUint32(), pesId: reader.ReadUint32(), properties: reader.ReadUint32(),
+      };
       reader.AlignBoundary();
+      objects.push(object);
     }
 
+    const times: SkyTime[] = [];
     const skyTimes = reader.ReadUint32();
     for (let i = 0; i < skyTimes; i++) {
-      reader.ReadSingle(); // begin
-      reader.ReadSingle(); // dirBright
-      reader.ReadSingle(); // dirHeading
-      reader.ReadSingle(); // dirPitch
-      reader.ReadUint32(); // dirColor
-      reader.ReadSingle(); // ambBright
-      reader.ReadUint32(); // ambColor
-      reader.ReadSingle(); // minWorldFog
-      reader.ReadSingle(); // maxWorldFog
-      reader.ReadUint32(); // worldFogColor
-      reader.ReadUint32(); // worldFog
+      const time: SkyTime = {
+        begin: reader.ReadSingle(), dirBright: reader.ReadSingle(), dirHeading: reader.ReadSingle(), dirPitch: reader.ReadSingle(),
+        dirColor: reader.ReadUint32(), ambBright: reader.ReadSingle(), ambColor: reader.ReadUint32(),
+        minFog: reader.ReadSingle(), maxFog: reader.ReadSingle(), fogColor: reader.ReadUint32(), fog: reader.ReadUint32(),
+        replacements: [],
+      };
       reader.AlignBoundary();
 
       const replaces = reader.ReadUint32();
       for (let j = 0; j < replaces; j++) {
-        reader.ReadUint32(); // objectIndex
-        reader.ReadUint32(); // gfxObjId
-        reader.ReadSingle(); // rotate
-        reader.ReadSingle(); // transparent
-        reader.ReadSingle(); // luminosity
-        reader.ReadSingle(); // maxBright
+        time.replacements.push({ objectIndex: reader.ReadUint32(), gfxId: reader.ReadUint32(),
+          rotate: reader.ReadSingle(), transparent: reader.ReadSingle(),
+          luminosity: reader.ReadSingle(), maxBright: reader.ReadSingle() });
         reader.AlignBoundary();
       }
+      times.push(time);
     }
+    times.sort((a, b) => a.begin - b.begin);
+    days.push({ chance, name, objects, times });
   }
+  return { tickSize, lightTickSize, days };
 }
 
 function readSoundDesc(reader: BinaryReader): void {
