@@ -5,6 +5,7 @@ export { DatFile } from "./dat/DatFile.js";
 export { DatFileType, getFileType, getFileTypeName } from "./dat/DatFileType.js";
 export { GfxObj, GfxObjFlags } from "./dat/file_types/GfxObj.js";
 export { Setup, SetupFlags, Placement } from "./dat/file_types/Setup.js";
+export type { SetupParts } from "./dat/file_types/Setup.js";
 export { SpellTable } from "./dat/file_types/SpellTable.js";
 export { Texture, SurfacePixelFormat } from "./dat/file_types/Texture.js";
 export { CellLandblock } from "./dat/file_types/CellLandblock.js";
@@ -24,6 +25,7 @@ export { Surface, SurfaceType } from "./dat/file_types/Surface.js";
 export { SurfaceTexture } from "./dat/file_types/SurfaceTexture.js";
 export { Palette } from "./dat/file_types/Palette.js";
 export { Region } from "./dat/file_types/Region.js";
+export { readRegionSky } from "./dat/file_types/Region.js";
 export type {
   LandSurf,
   RoadAlphaMap,
@@ -33,7 +35,32 @@ export type {
   TerrainType,
   TexMerge,
   TMTerrainDesc,
+  RegionGameTime,
+  RegionSky,
+  SkyDesc,
+  SkyDay,
+  SkyObject,
+  SkyReplacement,
+  SkyTime,
 } from "./dat/file_types/Region.js";
+export type { ObjDesc, ObjDescPalette, ObjDescPart, ObjDescTexture } from "./dat/types/ObjDesc.js";
+export { parseCharGen, CHAR_GEN_FILE_ID } from "./ac/charGen.js";
+export type {
+  CharGen, CharGenFaceStrip, CharGenEyeStrip, CharGenHairStyle, CharGenHeritage, CharGenSex,
+} from "./ac/charGen.js";
+export {
+  parseClothingTable, parsePaletteSet, selectPalette,
+} from "./ac/clothing.js";
+export type {
+  ClothingBaseEffect, ClothingObjectEffect, ClothingSubPalette, ClothingSubPaletteEffect,
+  ClothingSubPaletteRange, ClothingTable, PaletteSet,
+} from "./ac/clothing.js";
+export { RenderTexture } from "./ac/renderTexture.js";
+export { EmitterType, ParticleType, ParticleEmitterInfo } from "./ac/particleEmitterInfo.js";
+export { PhysicsScript } from "./ac/physicsScript.js";
+export type { PhysicsScriptData } from "./ac/physicsScript.js";
+export { PhysicsScriptTable, selectScript } from "./ac/physicsScriptTable.js";
+export type { ScriptAndModData } from "./ac/physicsScriptTable.js";
 export { Scene } from "./dat/file_types/Scene.js";
 export type { ObjectDesc } from "./dat/file_types/Scene.js";
 export { MotionTable, MotionFlags, motionKey } from "./dat/file_types/MotionTable.js";

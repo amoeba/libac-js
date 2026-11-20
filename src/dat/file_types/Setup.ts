@@ -6,6 +6,14 @@ import { readLightInfo, LightInfo } from "../types/LightInfo.js";
 import { readLocationType, LocationType } from "../types/LocationType.js";
 import { Vec3 } from "../../BinaryReader.js";
 
+/** Bounded header projection for callers that only need a Setup's GfxObj ids. */
+export interface SetupParts {
+  id: number;
+  flags: number;
+  numParts: number;
+  parts: number[];
+}
+
 /** Setup flags (AC `SetupFlags`). */
 export enum SetupFlags {
   HasParent = 0x01,
@@ -180,6 +188,28 @@ export class Setup {
     setup.defaultScriptTable = reader.ReadUint32();
 
     return setup;
+  }
+
+  /**
+   * Read the Setup header and part list without traversing model sections.
+   * Remaining bytes are deliberately ignored. Pass `maxParts` when the caller
+   * has a narrower policy; the native parser only bounds the array by bytes.
+   */
+  static readParts(data: Uint8Array | ArrayBuffer, maxParts?: number): SetupParts {
+    const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
+    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    if (bytes.byteLength < 12) throw new Error("Setup: truncated header");
+    const id = view.getUint32(0, true);
+    const flags = view.getUint32(4, true);
+    const numParts = view.getUint32(8, true);
+    if (id >>> 24 !== 0x02) throw new Error(`Setup: invalid file id 0x${id.toString(16)}`);
+    if (maxParts !== undefined && numParts > maxParts) {
+      throw new Error(`Setup: part count ${numParts} exceeds limit ${maxParts}`);
+    }
+    if (numParts > Math.floor((bytes.byteLength - 12) / 4)) throw new Error("Setup: truncated parts");
+    const parts = new Array<number>(numParts);
+    for (let i = 0; i < numParts; i++) parts[i] = view.getUint32(12 + i * 4, true);
+    return { id, flags, numParts, parts };
   }
 
   /** The default placement frame — absolute transform for each part. */

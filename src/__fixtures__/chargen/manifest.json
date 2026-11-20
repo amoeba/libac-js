@@ -1,0 +1,438 @@
+{
+  "description": "Pinned retail portal CharGen and all skin/hair palette sets, plus one real clothing composition case. Offline tests, not live shard parity.",
+  "origin": "https://dats.treestats.net",
+  "archive": "portal",
+  "endpoint": "/dats/portal/files/{id}",
+  "captured": "2026-11-01",
+  "aceCommit": "3af8377676dd7e40e91ace5db72b73abeebb4185",
+  "acviewerCommit": "c5c54fb3318cd956a330a920c105a0109aaeb3fd",
+  "files": [
+    {
+      "id": "0x02000001",
+      "file": "0x02000001.bin",
+      "bytes": 1692,
+      "sha256": "702323000e7dde1386bc9eb55b54296cc2e072719919e5504efec8c7816c501d",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0e000002",
+      "file": "0x0e000002.bin",
+      "bytes": 69469,
+      "sha256": "ed740a346e00e505175fba0ace039019ff2c09888a627718b653b27c8807627f",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000001",
+      "file": "0x0f000001.bin",
+      "bytes": 24,
+      "sha256": "f36d9abeca1dbcd114b0252e76462b3a42327ef628cbf7f9a3a157581db5e8ea",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000002",
+      "file": "0x0f000002.bin",
+      "bytes": 24,
+      "sha256": "9a455566c28da7a8f79ef98470ab4159153ceed4960c95a9fdc35f01f1ed7055",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000003",
+      "file": "0x0f000003.bin",
+      "bytes": 24,
+      "sha256": "ba45fbeaa7c7ce6ecc87161c58156fe69cbd2eb7878baa2e8fc090ce8d097094",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000004",
+      "file": "0x0f000004.bin",
+      "bytes": 24,
+      "sha256": "4b62f295643d4c2c0bac6814f5698c81bed86089cb2babe477e46f2164669394",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000005",
+      "file": "0x0f000005.bin",
+      "bytes": 24,
+      "sha256": "27d296321a291a4dfae2abc67fec09135f272a7e663e19e59cf28944a210644a",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000006",
+      "file": "0x0f000006.bin",
+      "bytes": 24,
+      "sha256": "2337e012198c5139e9449ea36f04d50be658d21db4172eca9fbef0fa40592bf0",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000007",
+      "file": "0x0f000007.bin",
+      "bytes": 24,
+      "sha256": "f17d933bd5e21fd28b88bb1b2a06c827f1fcffb6de426f6b2d9ef91de7903eb6",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000008",
+      "file": "0x0f000008.bin",
+      "bytes": 24,
+      "sha256": "dc1d71133016b9b2115c0e79aecf58ea2472e20bb6c63b1713fb320a991be8a2",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000009",
+      "file": "0x0f000009.bin",
+      "bytes": 32,
+      "sha256": "30f197512e4c6e35891ccdcefc91be8d2c84acf9b7d9844327d9393dbec49f47",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00000a",
+      "file": "0x0f00000a.bin",
+      "bytes": 24,
+      "sha256": "7a81db928deba390c409070679c440ed0f892067d63898dbcb0623c095cea1c3",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00000b",
+      "file": "0x0f00000b.bin",
+      "bytes": 24,
+      "sha256": "504add2dbaaec09fb596c161ffc072716fe96309e6babf81e4adcf8fe17b4fe5",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00000c",
+      "file": "0x0f00000c.bin",
+      "bytes": 24,
+      "sha256": "cf8c5edb8a615963738f9610ca4a713c43aead7ca760e646a954997c24043ad0",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f00000d",
+      "file": "0x0f00000d.bin",
+      "bytes": 24,
+      "sha256": "e627d769470c136363d1010992b57274dd8b94c19f690a14637e45b4e7c86301",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00000e",
+      "file": "0x0f00000e.bin",
+      "bytes": 32,
+      "sha256": "52e2c2f55d1f40459eff0d33934e980191d5891f2fd944729d53dfd060d8abd4",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00000f",
+      "file": "0x0f00000f.bin",
+      "bytes": 24,
+      "sha256": "2e0ffd7b130949daf8520da592d95415ccabff9e46006c6c319fe0eaa509498e",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000010",
+      "file": "0x0f000010.bin",
+      "bytes": 24,
+      "sha256": "8842cdaec69c14f39d2a21091e40d61620fbfd2a8cebdd4a32a3962497b38706",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000011",
+      "file": "0x0f000011.bin",
+      "bytes": 24,
+      "sha256": "9f593fd27c055bb34b42f707cf7cf2036710624f3dab897428784e11871ca2d3",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000012",
+      "file": "0x0f000012.bin",
+      "bytes": 24,
+      "sha256": "9a152e05cf75768ac35ccc8ed2e8392a60d88a32209a5005fc3fbcc09aef37bb",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000013",
+      "file": "0x0f000013.bin",
+      "bytes": 28,
+      "sha256": "5a1851c3397768925e43409b985b3d0cd2f27a0c77765a602af0d494285297bc",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000014",
+      "file": "0x0f000014.bin",
+      "bytes": 40,
+      "sha256": "b8f096239452cda3d7f911b4834f832f5b386643f565d079575433b7145019bf",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000015",
+      "file": "0x0f000015.bin",
+      "bytes": 60,
+      "sha256": "890cebcff1ee0a8976e5160e7662550f557a693b8ab65da840fe095f92145857",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000025",
+      "file": "0x0f000025.bin",
+      "bytes": 232,
+      "sha256": "af6d61c9e5c21c9dd61e9b015db591a35aeab51ff31303ed4afe03bafb0abd99",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00011f",
+      "file": "0x0f00011f.bin",
+      "bytes": 12,
+      "sha256": "b4bfdc9a85e305394d0e0ba2bdc82fb297b3b1a668406dd243eab42e77d00fb2",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000120",
+      "file": "0x0f000120.bin",
+      "bytes": 12,
+      "sha256": "0cf9c8487489648fc1bc9110c3957a60a16f1f9ff7024a034052dcd3366c8e50",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000121",
+      "file": "0x0f000121.bin",
+      "bytes": 12,
+      "sha256": "aa2086e5787d2ddbfee2a2c59e2b996f1d482f99227659979944e4020aa8ab88",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000122",
+      "file": "0x0f000122.bin",
+      "bytes": 12,
+      "sha256": "9433d6eb7744be1ddeaafc367de4168e271af14bda6f44be683f814f443e56b7",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f00016c",
+      "file": "0x0f00016c.bin",
+      "bytes": 12,
+      "sha256": "5fbbd27dd5719459a0e97f5a5241ab33cf4b08588c6180c5b6ca723dd7c45cc5",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f00016d",
+      "file": "0x0f00016d.bin",
+      "bytes": 12,
+      "sha256": "7050c9bf2d3801a9bbf22b36aa996faecbe092c7149aaeed202a68a34cac2dcc",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f00016e",
+      "file": "0x0f00016e.bin",
+      "bytes": 12,
+      "sha256": "d907a9cd2bf2ad472d0dad877b46cca314a536f486fe498647f779f60a5a7d50",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f0001e5",
+      "file": "0x0f0001e5.bin",
+      "bytes": 12,
+      "sha256": "1a6d1db037401eb056e5a085779e1dd098e97c4b80ba830628fb014c91d56129",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f0001e6",
+      "file": "0x0f0001e6.bin",
+      "bytes": 12,
+      "sha256": "9cd3e58a66a4c0a61adf290230d71b3ef620337db2c6827ac919a7c752ca4a98",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f0001e7",
+      "file": "0x0f0001e7.bin",
+      "bytes": 12,
+      "sha256": "be91bf9c8dc6dd315a122016789de66812a433183c8fd663bd1048736f5283b4",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000810",
+      "file": "0x0f000810.bin",
+      "bytes": 40,
+      "sha256": "5592aa1f5bf582203a2ed6a7ed50140af9f73f0575d609d1b795d3eee0d69cee",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b30",
+      "file": "0x0f000b30.bin",
+      "bytes": 32,
+      "sha256": "e873807d38bd7f94b4f4f58cc33d47ad32ee9e03e717bf71c70abedeb87fdeb4",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b35",
+      "file": "0x0f000b35.bin",
+      "bytes": 128,
+      "sha256": "ccfac04b17f347d76d0719bacf442d7c892ebf39bca9a391ac4ab07b11b0c931",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b36",
+      "file": "0x0f000b36.bin",
+      "bytes": 32,
+      "sha256": "420d679420dc53787000eb2e31c39de18296188e036eedba969b252a86c49910",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b37",
+      "file": "0x0f000b37.bin",
+      "bytes": 36,
+      "sha256": "f98791ded7d6862f80755f9ffd02d3c75ddc90a00cba48a44f4d35647989d323",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b38",
+      "file": "0x0f000b38.bin",
+      "bytes": 36,
+      "sha256": "5200c8da6246ad3cda4409f0fe1ba6aabb3e3bea4d0cb73ca69e7fb91c5ed625",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b3a",
+      "file": "0x0f000b3a.bin",
+      "bytes": 28,
+      "sha256": "970a80cffb64a21091e5d0c3cdab1cc71fee7ad5a3e6ba1be7a97c86e7f9316b",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b3c",
+      "file": "0x0f000b3c.bin",
+      "bytes": 40,
+      "sha256": "27eab8904b7c9200ffa7e320264d3eba5892ff49ead1e9894014d6a83f5c3766",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b3d",
+      "file": "0x0f000b3d.bin",
+      "bytes": 36,
+      "sha256": "7e7a84c417fc328c44c7ab42fde4b4eca77dea914997a6805ae10c3612a06941",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b3e",
+      "file": "0x0f000b3e.bin",
+      "bytes": 36,
+      "sha256": "fe62b86d335bf40ef831475a237b2544021a7ae7b6421ae8ca534eeff16d2f80",
+      "source": "appearance-dats/b63519b4237d5a45"
+    },
+    {
+      "id": "0x0f000b3f",
+      "file": "0x0f000b3f.bin",
+      "bytes": 36,
+      "sha256": "9f8c38e77368fb65e2944cdd0c207ff50cb9f6a435b2e4c8c0fa961e3cff69a7",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b40",
+      "file": "0x0f000b40.bin",
+      "bytes": 36,
+      "sha256": "21ce6d56a344dbfc299ba914c6bb91561b0df2ec61a89823b464e8b0e1b41e27",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b41",
+      "file": "0x0f000b41.bin",
+      "bytes": 108,
+      "sha256": "fa60017652471117aae0b9278a505d885bc0f05cc01434d80cd6f92ac25d8a7e",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b45",
+      "file": "0x0f000b45.bin",
+      "bytes": 112,
+      "sha256": "8a38246d3805b1bd4e799f1afc9534d1128f9b2aa04c718fe0740763e28131ca",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b50",
+      "file": "0x0f000b50.bin",
+      "bytes": 60,
+      "sha256": "10e6ca992e9b1f4b1ed8e2fc236d3e8adaae68db28842d792af9853021168a1f",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b51",
+      "file": "0x0f000b51.bin",
+      "bytes": 60,
+      "sha256": "8fd3a3f7209337c911a973a46ba0493fe142b9be288de9ea0a4c63838d4ce79c",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b52",
+      "file": "0x0f000b52.bin",
+      "bytes": 60,
+      "sha256": "59ae7c0a9decaa621ca5a179976cb4d754f6d89ffe35773ebdcc687a4c7fe789",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b53",
+      "file": "0x0f000b53.bin",
+      "bytes": 60,
+      "sha256": "fba32bfd3cc20a9d0cd18fa579c236aad2699950fc63afcd9a8e05656dc02b54",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b54",
+      "file": "0x0f000b54.bin",
+      "bytes": 60,
+      "sha256": "192e81f4f03f23e0b895a3b363ad4183a9d61ab6d1ab0160b52ac10ee810b466",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b55",
+      "file": "0x0f000b55.bin",
+      "bytes": 60,
+      "sha256": "a40655d202a52efe3b77d95b18ae9ca648d82a3166188f2dd417a21c0f8a307c",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b56",
+      "file": "0x0f000b56.bin",
+      "bytes": 60,
+      "sha256": "14a4c196041c479cd1e5d9cb08328f68b1fc8bdae8350956c01ec58a83e3279d",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b57",
+      "file": "0x0f000b57.bin",
+      "bytes": 60,
+      "sha256": "d008c326d396d00c72de2a0971065486efe1931e528db6f6034f6c7d03a97216",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b58",
+      "file": "0x0f000b58.bin",
+      "bytes": 60,
+      "sha256": "39c50afe7404243049b1e14e645c9a1a148e631d975e76bbaf4fdf506f872c07",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b59",
+      "file": "0x0f000b59.bin",
+      "bytes": 60,
+      "sha256": "b877f2fc359aa16acbd6829dd9ae563a3df44e48605c9db4a5eac1b2c7dd6fc9",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b5a",
+      "file": "0x0f000b5a.bin",
+      "bytes": 128,
+      "sha256": "f90dab6ffa69344a8618bd86593dcc27bd5ad1da4e4fa57db3c484276248d52e",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x0f000b5d",
+      "file": "0x0f000b5d.bin",
+      "bytes": 120,
+      "sha256": "64a4079e211f5e0a6b84427204d3d3a450ced4df67ffb47ef4a02d80fd285fe2",
+      "source": "portal raw endpoint"
+    },
+    {
+      "id": "0x100000a4",
+      "file": "0x100000a4.bin",
+      "bytes": 4672,
+      "sha256": "211ecb4acb8b917857f32afed19c34e5221ea1f647b92bd60d923d9d987372f0",
+      "source": "appearance-dats/b63519b4237d5a45"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "@amoeba/libac",
   "description": "Library for working with Asheron's Call data structures and protocols.",
   "author": "Bryce Mecum",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -16,6 +16,10 @@
     "./node": {
       "types": "./dist/node/index.d.ts",
       "default": "./dist/node/index.js"
+    },
+    "./pixels": {
+      "types": "./dist/pixels/index.d.ts",
+      "default": "./dist/pixels/index.js"
     },
     "./package.json": "./package.json"
   },
