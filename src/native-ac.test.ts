@@ -31,7 +31,12 @@ test("Setup.readParts is offset-safe, ignores later sections, and supports calle
   assert.deepEqual(Setup.readParts(carrier.subarray(5, 5 + bytes.length)), {
     id: 0x02000001, flags: 3, numParts: 2, parts: [0x010000aa, 0x010000bb],
   });
-  assert.throws(() => Setup.readParts(bytes, 1), /exceeds limit/);
+  assert.throws(() => Setup.readParts(bytes, { maxParts: 1 }), /exceeds limit/);
+  assert.throws(() => Setup.readParts(bytes, { expectedId: 0x02000002, maxParts: 1 }), /invalid\/mismatched id/);
+  const oversized = new Uint8Array(12 + 257 * 4);
+  const oversizedView = new DataView(oversized.buffer);
+  oversizedView.setUint32(0, 0x02000001, true); oversizedView.setUint32(8, 257, true);
+  assert.throws(() => Setup.readParts(oversized, { expectedId: 0x02000002, maxParts: 256 }), /invalid\/mismatched id/);
   assert.throws(() => Setup.readParts(bytes.subarray(0, 18)), /truncated parts/);
   const wrong = bytes.slice(); new DataView(wrong.buffer).setUint32(0, 0x01000001, true);
   assert.throws(() => Setup.readParts(wrong), /invalid file id/);

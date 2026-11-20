@@ -10,6 +10,8 @@
 
 import * as browserEntry from "./index.js";
 import * as nodeEntry from "./node/index.js";
+import * as runtimeEntry from "./runtime/index.js";
+import * as aceEntry from "./ace/index.js";
 
 const CORE_EXPORTS = [
   "BinaryReader",
@@ -40,5 +42,21 @@ describe("browser entry (src/index.ts)", () => {
 describe("node entry (src/node/index.ts)", () => {
   test.each([...NODE_ONLY_EXPORTS, ...CORE_EXPORTS])("exports %s", (name) => {
     expect(node[name]).toBeDefined();
+  });
+});
+
+describe("optional domain entrypoints", () => {
+  test("the root entry stays independent of optional runtime and ACE modules", () => {
+    expect(browser["resolveInitialNoDraw"]).toBeUndefined();
+    expect(browser["resolveGeneratorSpawns"]).toBeUndefined();
+  });
+
+  test("runtime and ACE symbols are opt-in", () => {
+    expect(runtimeEntry.resolveInitialNoDraw).toBeDefined();
+    expect(runtimeEntry.samplePose).toBeDefined();
+    expect(runtimeEntry.generateScenery).toBeDefined();
+    expect(runtimeEntry.selectTerrainTextures).toBeDefined();
+    expect(aceEntry.resolveGeneratorSpawns).toBeDefined();
+    expect(aceEntry.selectInitialEquipment).toBeDefined();
   });
 });

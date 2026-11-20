@@ -1,0 +1,20 @@
+import assert from "node:assert/strict";
+import * as core from "@amoeba/libac";
+import * as runtime from "@amoeba/libac/runtime";
+import * as ace from "@amoeba/libac/ace";
+import * as pixels from "@amoeba/libac/pixels";
+
+assert.equal(core.resolveInitialNoDraw, undefined, "core must not eagerly export runtime helpers");
+assert.equal(core.resolveAppearance, undefined, "core must not eagerly export ACE snapshot helpers");
+assert.equal(typeof runtime.resolveInitialNoDraw, "function");
+assert.equal(typeof runtime.samplePose, "function");
+assert.equal(typeof runtime.generateScenery, "function");
+assert.equal(typeof runtime.evaluateParticleMotion, "function");
+assert.equal(typeof runtime.skyInterval, "function");
+assert.equal(typeof ace.resolveAppearance, "function");
+assert.equal(typeof ace.resolveCharGenAppearance, "function");
+assert.equal(typeof ace.resolveGeneratorSpawns, "function");
+assert.equal(typeof ace.selectInitialEquipment, "function");
+assert.equal(typeof pixels.decodePixelData, "function");
+assert.equal(typeof pixels.mergePalette, "function");
+console.log("check-package-entrypoints: OK — core, runtime, ACE, and pixels resolve from their public subpaths.");

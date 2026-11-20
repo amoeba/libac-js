@@ -21,6 +21,14 @@
       "types": "./dist/pixels/index.d.ts",
       "default": "./dist/pixels/index.js"
     },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "default": "./dist/runtime/index.js"
+    },
+    "./ace": {
+      "types": "./dist/ace/index.d.ts",
+      "default": "./dist/ace/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -41,8 +49,9 @@
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && tsc -p tsconfig.browser.json && tsc -p tsconfig.node.json",
     "typecheck:browser": "tsc -p tsconfig.browser.json --noEmit",
+    "check:entries": "node scripts/check-package-entrypoints.mjs",
     "check:browser": "node scripts/check-browser-bundle.mjs",
-    "verify": "npm run build && npm run check:browser && npm run typecheck:browser && npm test",
+    "verify": "npm run build && npm run check:entries && npm run check:browser && npm run typecheck:browser && npm test",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "prepare": "npm run build",
     "prepack": "npm run build",

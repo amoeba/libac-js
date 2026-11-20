@@ -35,6 +35,10 @@ const RULES = [
     label: 'fs import (`"fs"` / `"node:fs"`)',
     pattern: /from\s*["'](?:node:)?fs["']/g,
   },
+  {
+    label: "Three.js import (runtime and ACE entrypoints are renderer-independent)",
+    pattern: /(?:from\s*["']three(?:\/[^"']*)?["']|import\s*\(\s*["']three(?:\/[^"']*)?["'])/g,
+  },
 ];
 
 if (!isDirectory(distDir)) {

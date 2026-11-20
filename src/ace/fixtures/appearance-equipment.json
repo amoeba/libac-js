@@ -1,0 +1,2110 @@
+{
+  "source": "https://acedb.treestats.net/ace_world_patches.json",
+  "retrievedAt": "2026-11-01",
+  "description": "Read-only SQL row fixtures. treasure439/198 and create rows complete by id. ascendantDrudgeCreate is the complete real Wield create list for class 35780; every referenced template is absent from the supported ace_world_patches snapshot. Item int selection types 1,3,4,6,7,9,12,28,46,48,50,51,68,101; floats 12,84,85,86. armor is a relational projection of Weenie type2 + int9/int4/int28 + string1, class_Id<300.",
+  "treasure439": [
+    {
+      "id": 4680,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23747,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 1,
+      "stack_Size_Variance": 0,
+      "probability": 0.9,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4681,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 7578,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 1,
+      "stack_Size_Variance": 0,
+      "probability": 0.1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4682,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23741,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.35,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4683,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23759,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.2,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4684,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23755,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.2,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4685,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23767,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.15,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4686,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 7577,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.05,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 4687,
+      "treasure_Type": 439,
+      "weenie_Class_Id": 23765,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.05,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 0,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    }
+  ],
+  "treasure198": [
+    {
+      "id": 661,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23733,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 662,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15431,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 20,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 663,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23733,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 664,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15429,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 17,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 665,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23664,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 666,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15438,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 20,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 667,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23664,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 668,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15440,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 16,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 669,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23733,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 670,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15433,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 20,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 671,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23733,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 672,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15432,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 17,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 673,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23664,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 674,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15442,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 20,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 675,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 23664,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.125,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 676,
+      "treasure_Type": 198,
+      "weenie_Class_Id": 15441,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 16,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    }
+  ],
+  "ulgrimCreate": [
+    {
+      "id": 48627,
+      "object_Id": 6873,
+      "destination_Type": 2,
+      "weenie_Class_Id": 161,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0,
+      "try_To_Bond": 0
+    }
+  ],
+  "create1404": [
+    {
+      "id": 60067,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 7041,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.03,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60068,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 0,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.97,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60069,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 5873,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.03,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60070,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 0,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.97,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60071,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 6876,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.01,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60072,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 0,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.99,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60073,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 9310,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.03,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60074,
+      "object_Id": 1404,
+      "destination_Type": 9,
+      "weenie_Class_Id": 0,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 0.97,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60075,
+      "object_Id": 1404,
+      "destination_Type": 10,
+      "weenie_Class_Id": 24598,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 1,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60076,
+      "object_Id": 1404,
+      "destination_Type": 10,
+      "weenie_Class_Id": 1457,
+      "stack_Size": 0,
+      "palette": 0,
+      "shade": 1,
+      "try_To_Bond": 0
+    }
+  ],
+  "types": [
+    {
+      "class_Id": 161,
+      "type": 1
+    },
+    {
+      "class_Id": 7577,
+      "type": 6
+    },
+    {
+      "class_Id": 7578,
+      "type": 4
+    },
+    {
+      "class_Id": 23741,
+      "type": 6
+    },
+    {
+      "class_Id": 23747,
+      "type": 4
+    },
+    {
+      "class_Id": 23755,
+      "type": 6
+    },
+    {
+      "class_Id": 23759,
+      "type": 6
+    },
+    {
+      "class_Id": 23765,
+      "type": 6
+    },
+    {
+      "class_Id": 23767,
+      "type": 6
+    }
+  ],
+  "ints": [
+    {
+      "id": 504182,
+      "object_Id": 161,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 504183,
+      "object_Id": 161,
+      "type": 3,
+      "value": 20
+    },
+    {
+      "id": 504186,
+      "object_Id": 161,
+      "type": 9,
+      "value": 4194304
+    },
+    {
+      "id": 504191,
+      "object_Id": 161,
+      "type": 46,
+      "value": 128
+    },
+    {
+      "id": 504192,
+      "object_Id": 161,
+      "type": 48,
+      "value": 47
+    },
+    {
+      "id": 504194,
+      "object_Id": 161,
+      "type": 51,
+      "value": 2
+    },
+    {
+      "id": 403404,
+      "object_Id": 6873,
+      "type": 1,
+      "value": 16
+    },
+    {
+      "id": 403406,
+      "object_Id": 6873,
+      "type": 3,
+      "value": 4
+    },
+    {
+      "id": 403407,
+      "object_Id": 6873,
+      "type": 6,
+      "value": -1
+    },
+    {
+      "id": 403408,
+      "object_Id": 6873,
+      "type": 7,
+      "value": -1
+    },
+    {
+      "id": 233930,
+      "object_Id": 7577,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 233933,
+      "object_Id": 7577,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 233939,
+      "object_Id": 7577,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 233941,
+      "object_Id": 7577,
+      "type": 48,
+      "value": 1
+    },
+    {
+      "id": 233943,
+      "object_Id": 7577,
+      "type": 51,
+      "value": 1
+    },
+    {
+      "id": 266273,
+      "object_Id": 7578,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 266276,
+      "object_Id": 7578,
+      "type": 9,
+      "value": 4194304
+    },
+    {
+      "id": 266277,
+      "object_Id": 7578,
+      "type": 11,
+      "value": 30
+    },
+    {
+      "id": 266278,
+      "object_Id": 7578,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 266288,
+      "object_Id": 7578,
+      "type": 46,
+      "value": 128
+    },
+    {
+      "id": 266289,
+      "object_Id": 7578,
+      "type": 48,
+      "value": 12
+    },
+    {
+      "id": 266291,
+      "object_Id": 7578,
+      "type": 51,
+      "value": 2
+    },
+    {
+      "id": 253917,
+      "object_Id": 23741,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 253920,
+      "object_Id": 23741,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 253925,
+      "object_Id": 23741,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 253927,
+      "object_Id": 23741,
+      "type": 48,
+      "value": 1
+    },
+    {
+      "id": 253929,
+      "object_Id": 23741,
+      "type": 51,
+      "value": 1
+    },
+    {
+      "id": 267638,
+      "object_Id": 23747,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 267641,
+      "object_Id": 23747,
+      "type": 9,
+      "value": 4194304
+    },
+    {
+      "id": 267642,
+      "object_Id": 23747,
+      "type": 11,
+      "value": 30
+    },
+    {
+      "id": 267643,
+      "object_Id": 23747,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 267652,
+      "object_Id": 23747,
+      "type": 46,
+      "value": 128
+    },
+    {
+      "id": 267653,
+      "object_Id": 23747,
+      "type": 48,
+      "value": 12
+    },
+    {
+      "id": 267655,
+      "object_Id": 23747,
+      "type": 51,
+      "value": 2
+    },
+    {
+      "id": 254049,
+      "object_Id": 23755,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 254052,
+      "object_Id": 23755,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 254057,
+      "object_Id": 23755,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 254059,
+      "object_Id": 23755,
+      "type": 48,
+      "value": 1
+    },
+    {
+      "id": 254061,
+      "object_Id": 23755,
+      "type": 51,
+      "value": 1
+    },
+    {
+      "id": 254113,
+      "object_Id": 23759,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 254116,
+      "object_Id": 23759,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 254121,
+      "object_Id": 23759,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 254123,
+      "object_Id": 23759,
+      "type": 48,
+      "value": 5
+    },
+    {
+      "id": 254125,
+      "object_Id": 23759,
+      "type": 51,
+      "value": 1
+    },
+    {
+      "id": 254211,
+      "object_Id": 23765,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 254214,
+      "object_Id": 23765,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 254220,
+      "object_Id": 23765,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 254222,
+      "object_Id": 23765,
+      "type": 48,
+      "value": 5
+    },
+    {
+      "id": 254224,
+      "object_Id": 23765,
+      "type": 51,
+      "value": 1
+    },
+    {
+      "id": 254245,
+      "object_Id": 23767,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "id": 254248,
+      "object_Id": 23767,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "id": 254253,
+      "object_Id": 23767,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "id": 254255,
+      "object_Id": 23767,
+      "type": 48,
+      "value": 5
+    },
+    {
+      "id": 254257,
+      "object_Id": 23767,
+      "type": 51,
+      "value": 1
+    }
+  ],
+  "types198": [
+    {
+      "class_Id": 15429,
+      "type": 5
+    },
+    {
+      "class_Id": 15431,
+      "type": 5
+    },
+    {
+      "class_Id": 15432,
+      "type": 5
+    },
+    {
+      "class_Id": 15433,
+      "type": 5
+    },
+    {
+      "class_Id": 15438,
+      "type": 5
+    },
+    {
+      "class_Id": 15440,
+      "type": 5
+    },
+    {
+      "class_Id": 15441,
+      "type": 5
+    },
+    {
+      "class_Id": 15442,
+      "type": 5
+    },
+    {
+      "class_Id": 23664,
+      "type": 3
+    },
+    {
+      "class_Id": 23733,
+      "type": 3
+    }
+  ],
+  "ints198": [
+    {
+      "id": 335003,
+      "object_Id": 15429,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335004,
+      "object_Id": 15429,
+      "type": 3,
+      "value": 4
+    },
+    {
+      "id": 335007,
+      "object_Id": 15429,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335009,
+      "object_Id": 15429,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335017,
+      "object_Id": 15429,
+      "type": 50,
+      "value": 1
+    },
+    {
+      "id": 335018,
+      "object_Id": 15429,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335048,
+      "object_Id": 15431,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335049,
+      "object_Id": 15431,
+      "type": 3,
+      "value": 61
+    },
+    {
+      "id": 335052,
+      "object_Id": 15431,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335054,
+      "object_Id": 15431,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335062,
+      "object_Id": 15431,
+      "type": 50,
+      "value": 1
+    },
+    {
+      "id": 335063,
+      "object_Id": 15431,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335070,
+      "object_Id": 15432,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335071,
+      "object_Id": 15432,
+      "type": 3,
+      "value": 20
+    },
+    {
+      "id": 335074,
+      "object_Id": 15432,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335076,
+      "object_Id": 15432,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335084,
+      "object_Id": 15432,
+      "type": 50,
+      "value": 1
+    },
+    {
+      "id": 335085,
+      "object_Id": 15432,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335092,
+      "object_Id": 15433,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335093,
+      "object_Id": 15433,
+      "type": 3,
+      "value": 39
+    },
+    {
+      "id": 335096,
+      "object_Id": 15433,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335098,
+      "object_Id": 15433,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335106,
+      "object_Id": 15433,
+      "type": 50,
+      "value": 1
+    },
+    {
+      "id": 335107,
+      "object_Id": 15433,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335205,
+      "object_Id": 15438,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335206,
+      "object_Id": 15438,
+      "type": 3,
+      "value": 4
+    },
+    {
+      "id": 335209,
+      "object_Id": 15438,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335211,
+      "object_Id": 15438,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335219,
+      "object_Id": 15438,
+      "type": 50,
+      "value": 2
+    },
+    {
+      "id": 335220,
+      "object_Id": 15438,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335250,
+      "object_Id": 15440,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335251,
+      "object_Id": 15440,
+      "type": 3,
+      "value": 61
+    },
+    {
+      "id": 335254,
+      "object_Id": 15440,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335256,
+      "object_Id": 15440,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335264,
+      "object_Id": 15440,
+      "type": 50,
+      "value": 2
+    },
+    {
+      "id": 335265,
+      "object_Id": 15440,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335272,
+      "object_Id": 15441,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335273,
+      "object_Id": 15441,
+      "type": 3,
+      "value": 20
+    },
+    {
+      "id": 335276,
+      "object_Id": 15441,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335278,
+      "object_Id": 15441,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335286,
+      "object_Id": 15441,
+      "type": 50,
+      "value": 2
+    },
+    {
+      "id": 335287,
+      "object_Id": 15441,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 335294,
+      "object_Id": 15442,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 335295,
+      "object_Id": 15442,
+      "type": 3,
+      "value": 39
+    },
+    {
+      "id": 335298,
+      "object_Id": 15442,
+      "type": 9,
+      "value": 8388608
+    },
+    {
+      "id": 335300,
+      "object_Id": 15442,
+      "type": 12,
+      "value": 1
+    },
+    {
+      "id": 335308,
+      "object_Id": 15442,
+      "type": 50,
+      "value": 2
+    },
+    {
+      "id": 335309,
+      "object_Id": 15442,
+      "type": 51,
+      "value": 3
+    },
+    {
+      "id": 568143,
+      "object_Id": 23664,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 568144,
+      "object_Id": 23664,
+      "type": 3,
+      "value": 20
+    },
+    {
+      "id": 568147,
+      "object_Id": 23664,
+      "type": 9,
+      "value": 4194304
+    },
+    {
+      "id": 568153,
+      "object_Id": 23664,
+      "type": 46,
+      "value": 32
+    },
+    {
+      "id": 568154,
+      "object_Id": 23664,
+      "type": 48,
+      "value": 47
+    },
+    {
+      "id": 568156,
+      "object_Id": 23664,
+      "type": 50,
+      "value": 2
+    },
+    {
+      "id": 568157,
+      "object_Id": 23664,
+      "type": 51,
+      "value": 2
+    },
+    {
+      "id": 568239,
+      "object_Id": 23733,
+      "type": 1,
+      "value": 256
+    },
+    {
+      "id": 568240,
+      "object_Id": 23733,
+      "type": 3,
+      "value": 20
+    },
+    {
+      "id": 568243,
+      "object_Id": 23733,
+      "type": 9,
+      "value": 4194304
+    },
+    {
+      "id": 568249,
+      "object_Id": 23733,
+      "type": 46,
+      "value": 16
+    },
+    {
+      "id": 568250,
+      "object_Id": 23733,
+      "type": 48,
+      "value": 47
+    },
+    {
+      "id": 568252,
+      "object_Id": 23733,
+      "type": 50,
+      "value": 1
+    },
+    {
+      "id": 568253,
+      "object_Id": 23733,
+      "type": 51,
+      "value": 2
+    }
+  ],
+  "types1404": [
+    {
+      "class_Id": 1457,
+      "type": 1
+    },
+    {
+      "class_Id": 24598,
+      "type": 6
+    }
+  ],
+  "ints1404": [
+    {
+      "object_Id": 1457,
+      "type": 1,
+      "value": 2
+    },
+    {
+      "object_Id": 1457,
+      "type": 3,
+      "value": 1
+    },
+    {
+      "object_Id": 1457,
+      "type": 9,
+      "value": 2097152
+    },
+    {
+      "object_Id": 1457,
+      "type": 28,
+      "value": 120
+    },
+    {
+      "object_Id": 1457,
+      "type": 51,
+      "value": 4
+    },
+    {
+      "object_Id": 24598,
+      "type": 1,
+      "value": 1
+    },
+    {
+      "object_Id": 24598,
+      "type": 9,
+      "value": 1048576
+    },
+    {
+      "object_Id": 24598,
+      "type": 46,
+      "value": 2
+    },
+    {
+      "object_Id": 24598,
+      "type": 48,
+      "value": 44
+    },
+    {
+      "object_Id": 24598,
+      "type": 51,
+      "value": 1
+    }
+  ],
+  "floats": [],
+  "armor": [
+    {
+      "class_Id": 35,
+      "type": 2,
+      "name": "Chainmail Basinet",
+      "locations": 1,
+      "coverage": 16384,
+      "armorLevel": 140
+    },
+    {
+      "class_Id": 36,
+      "type": 2,
+      "name": "Leather Bracers",
+      "locations": 4096,
+      "coverage": 8192,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 37,
+      "type": 2,
+      "name": "Scalemail Bracers",
+      "locations": 4096,
+      "coverage": 8192,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 38,
+      "type": 2,
+      "name": "Studded Leather Bracers",
+      "locations": 4096,
+      "coverage": 8192,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 39,
+      "type": 2,
+      "name": "Leather Breastplate",
+      "locations": 512,
+      "coverage": 1024,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 40,
+      "type": 2,
+      "name": "Platemail Breastplate",
+      "locations": 512,
+      "coverage": 1024,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 41,
+      "type": 2,
+      "name": "Scalemail Breastplate",
+      "locations": 512,
+      "coverage": 1024,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 42,
+      "type": 2,
+      "name": "Studded Leather Breastplate",
+      "locations": 512,
+      "coverage": 1024,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 43,
+      "type": 2,
+      "name": "Yoroi Breastplate",
+      "locations": 512,
+      "coverage": 1024,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 45,
+      "type": 2,
+      "name": "Leather Cap",
+      "locations": 1,
+      "coverage": 16384,
+      "armorLevel": 130
+    },
+    {
+      "class_Id": 46,
+      "type": 2,
+      "name": "Metal Cap",
+      "locations": 1,
+      "coverage": 16384,
+      "armorLevel": 140
+    },
+    {
+      "class_Id": 47,
+      "type": 2,
+      "name": "Leather Coat",
+      "locations": 7680,
+      "coverage": 15360,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 48,
+      "type": 2,
+      "name": "Studded Leather Coat",
+      "locations": 7680,
+      "coverage": 15360,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 50,
+      "type": 2,
+      "name": "Leather Cuirass",
+      "locations": 1536,
+      "coverage": 3072,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 51,
+      "type": 2,
+      "name": "Platemail Cuirass",
+      "locations": 1536,
+      "coverage": 3072,
+      "armorLevel": 110
+    },
+    {
+      "class_Id": 52,
+      "type": 2,
+      "name": "Scalemail Cuirass",
+      "locations": 1536,
+      "coverage": 3072,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 53,
+      "type": 2,
+      "name": "Studded Leather Cuirass",
+      "locations": 1536,
+      "coverage": 3072,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 54,
+      "type": 2,
+      "name": "Yoroi Cuirass",
+      "locations": 1536,
+      "coverage": 3072,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 55,
+      "type": 2,
+      "name": "Chainmail Gauntlets",
+      "locations": 32,
+      "coverage": 32768,
+      "armorLevel": 140
+    },
+    {
+      "class_Id": 56,
+      "type": 2,
+      "name": "Leather Gauntlets",
+      "locations": 32,
+      "coverage": 32768,
+      "armorLevel": 130
+    },
+    {
+      "class_Id": 57,
+      "type": 2,
+      "name": "Platemail Gauntlets",
+      "locations": 32,
+      "coverage": 32768,
+      "armorLevel": 150
+    },
+    {
+      "class_Id": 58,
+      "type": 2,
+      "name": "Scalemail Gauntlets",
+      "locations": 32,
+      "coverage": 32768,
+      "armorLevel": 140
+    },
+    {
+      "class_Id": 59,
+      "type": 2,
+      "name": "Studded Leather Gauntlets",
+      "locations": 32,
+      "coverage": 32768,
+      "armorLevel": 130
+    },
+    {
+      "class_Id": 60,
+      "type": 2,
+      "name": "Leather Girth",
+      "locations": 1024,
+      "coverage": 2048,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 61,
+      "type": 2,
+      "name": "Platemail Girth",
+      "locations": 1024,
+      "coverage": 2048,
+      "armorLevel": 110
+    },
+    {
+      "class_Id": 62,
+      "type": 2,
+      "name": "Scalemail Girth",
+      "locations": 1024,
+      "coverage": 2048,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 63,
+      "type": 2,
+      "name": "Studded Leather Girth",
+      "locations": 1024,
+      "coverage": 2048,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 64,
+      "type": 2,
+      "name": "Yoroi Girth",
+      "locations": 1024,
+      "coverage": 2048,
+      "armorLevel": 100
+    },
+    {
+      "class_Id": 65,
+      "type": 2,
+      "name": "Leather Greaves",
+      "locations": 16384,
+      "coverage": 512,
+      "armorLevel": 90
+    },
+    {
+      "class_Id": 66,
+      "type": 2,
+      "name": "Platemail Greaves",
+      "locations": 16384,
+      "coverage": 512,
+      "armorLevel": 110
+    }
+  ],
+  "terminal337": [
+    {
+      "id": 1331,
+      "treasure_Type": 337,
+      "weenie_Class_Id": 8525,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 2,
+      "stack_Size_Variance": 0.1,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    },
+    {
+      "id": 1332,
+      "treasure_Type": 337,
+      "weenie_Class_Id": 8524,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2005-02-09T10:00:00"
+    }
+  ],
+  "rootContinuation5920": [
+    {
+      "id": 5991,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33080,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5992,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33105,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5993,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33081,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5994,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33105,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5995,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33082,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5996,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33105,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5997,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33083,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5998,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33105,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 5999,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33084,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 0.6,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 1,
+      "continues_Previous_Set": 1,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    },
+    {
+      "id": 6000,
+      "treasure_Type": 5920,
+      "weenie_Class_Id": 33105,
+      "palette_Id": 0,
+      "unknown_1": 0,
+      "shade": 0,
+      "stack_Size": 0,
+      "stack_Size_Variance": 0,
+      "probability": 1,
+      "unknown_3": 0,
+      "unknown_4": 0,
+      "unknown_5": 0,
+      "set_Start": 1,
+      "has_Sub_Set": 0,
+      "continues_Previous_Set": 0,
+      "unknown_9": 0,
+      "unknown_10": 0,
+      "unknown_11": 0,
+      "unknown_12": 0,
+      "last_Modified": "2021-11-01T00:00:00"
+    }
+  ],
+  "ascendantDrudgeCreate": [
+    {
+      "id": 44015,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47257,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44016,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47352,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44017,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47238,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44018,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47333,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44019,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47409,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44020,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47276,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44021,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47314,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    },
+    {
+      "id": 44022,
+      "object_Id": 35780,
+      "destination_Type": 2,
+      "weenie_Class_Id": 47371,
+      "stack_Size": 1,
+      "palette": 0,
+      "shade": 0
+    }
+  ],
+  "extremeCreate": [
+    {
+      "id": 49119,
+      "object_Id": 28701,
+      "destination_Type": 2,
+      "weenie_Class_Id": 2547,
+      "stack_Size": -1,
+      "palette": 0,
+      "shade": 1.2,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 49477,
+      "object_Id": 31365,
+      "destination_Type": 2,
+      "weenie_Class_Id": 7772,
+      "stack_Size": 1,
+      "palette": 4,
+      "shade": 14,
+      "try_To_Bond": 0
+    },
+    {
+      "id": 60507,
+      "object_Id": 31040,
+      "destination_Type": 2,
+      "weenie_Class_Id": 48632,
+      "stack_Size": -1,
+      "palette": 0,
+      "shade": -1,
+      "try_To_Bond": 0
+    }
+  ]
+}
