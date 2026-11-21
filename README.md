@@ -13,7 +13,8 @@ HTTP responses.
   `RenderTexture`, bounded Setup projections, and Region GameTime/SkyDesc data.
 - A separate `@amoeba/libac/pixels` entrypoint for pure RGBA decoding, palette
   merging, and terrain pixel compositing. It shares the root `SurfacePixelFormat` enum.
-- `multipart/mixed` HTTP response parsing (`extractBoundary`, `parseMultipartMixed`).
+- Native landblock, landcell and cell-DAT id/coordinate math, including the
+  distinct outdoor (1..64) and interior (0x100+) cell ranges.
 - Node-only, filesystem-backed DAT access (`SeekableFileReader`, `DatDatabase`, `DatReader`).
 
 ## Installation
@@ -23,13 +24,14 @@ npm install @amoeba/libac
 ```
 
 The package is **ESM-only** and requires **Node.js 18 or newer**. A SideEffects-free
-browser-safe (universal) build is included for bundlers.
+browser-safe (universal) build is included for bundlers. See
+[MIGRATION.md](./MIGRATION.md) for the 0.3.0 breaking changes.
 
 ## Which entrypoint?
 
 | Entrypoint | Environment | What it includes |
 | --- | --- | --- |
-| `@amoeba/libac` | Browser / universal | Everything that is safe in any JS runtime: `BinaryReader`, `DatFile`/`DatFileType`, `GfxObj`, `Setup`, `SpellTable`, `Texture`, `MotionTable`, `Animation`, the `dat/types` models, the unpackables, and the multipart helpers. No Node built-ins, `Buffer`, or `fs`. |
+| `@amoeba/libac` | Browser / universal | Everything that is safe in any JS runtime: `BinaryReader`, `DatFile`/`DatFileType`, `GfxObj`, `Setup`, `SpellTable`, `Texture`, `MotionTable`, `Animation`, the `dat/types` models, the unpackables, and landblock/landcell id helpers. No Node built-ins, `Buffer`, or `fs`. |
 | `@amoeba/libac/node` | Node.js | The entire universal API **plus** the filesystem-backed DAT reading: `SeekableFileReader`, `DatDatabase`, `DatReader`. |
 | `@amoeba/libac/pixels` | Browser / universal | Pure pixel decoding and terrain compositing. No Three.js or Node built-ins. |
 
@@ -38,8 +40,7 @@ import your whole API from `@amoeba/libac/node`.
 
 > Browser DAT **file** reading is not supported yet — it will require an
 > HTTP-Range-based reader in a future release. In the browser you can still
-> parse in-memory buffers (`GfxObj.fromBuffer`, `Setup.fromBuffer`) and the
-> multipart helpers.
+> parse in-memory buffers (`GfxObj.fromBuffer`, `Setup.fromBuffer`).
 
 The pixel subpath is opt-in:
 
@@ -55,14 +56,14 @@ const rgba = decodePixelData({ format: SurfacePixelFormat.P8, width, height, byt
 ### Browser / universal
 
 `GfxObj.fromBuffer` and `Setup.fromBuffer` accept either a `Uint8Array` or an
-`ArrayBuffer`. Multipart helpers operate on `Uint8Array`/`ArrayBuffer` bytes.
+`ArrayBuffer`.
 
 ```ts
 import {
   GfxObj,
   Setup,
-  extractBoundary,
-  parseMultipartMixed,
+  blockId,
+  outdoorLandcellId,
 } from "@amoeba/libac";
 
 // Parse an in-memory DAT file buffer.
@@ -72,14 +73,10 @@ const gfxObj = GfxObj.fromBuffer(gfxObjBytes);
 console.log(setup.parts);      // referenced GfxObj IDs
 console.log(gfxObj.surfaces);  // texture references
 
-// Parse a multipart/mixed response body.
-const boundary = extractBoundary(contentType);
-if (boundary) {
-  const parts = parseMultipartMixed(responseBytes, boundary);
-  for (const part of parts) {
-    console.log(part.fileId, part.filename, part.body);
-  }
-}
+// Native landblock/cell ids: block 0xAAB4, first outdoor cell.
+const block = blockId(0xaa, 0xb4);
+console.log(block.toString(16));                    // aab4
+console.log(outdoorLandcellId(block, 0, 0).toString(16)); // aab40001
 ```
 
 ### Node.js

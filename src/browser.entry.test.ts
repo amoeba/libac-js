@@ -17,7 +17,7 @@ const CORE_EXPORTS = [
   "BinaryReader",
   "GfxObj",
   "Setup",
-  "parseMultipartMixed",
+  "outdoorLandcellId",
   "Texture",
 ] as const;
 
