@@ -87,3 +87,12 @@ URL building and loading policy stay in the application/service adapter.
 `heldPlacement` and `validateAttachmentFrame` are available from
 `@amoeba/libac/ace`. They describe ACE equipment placement and frame validity
 for that use, independently of service attachment serialization or wire budgets.
+
+## ACE admin-only visibility
+
+`passesAdminVisibilityCheck` is available from `@amoeba/libac/ace`. It models
+ACE's `PropertyBool.Visibility` (18) / player `Adminvision` tracking gate. An
+absent property defaults to false; admin-only objects require Adminvision.
+This gate is independent of native `PhysicsState.NoDraw` and does not represent
+the complete server tracking policy. Service transport flags and viewer
+inspection controls remain with their respective consumers.

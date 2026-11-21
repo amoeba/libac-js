@@ -53,3 +53,5 @@ export type {
 
 export { heldPlacement, validateAttachmentFrame } from "./heldAttachments.js";
 export type { HeldPlacement } from "./heldAttachments.js";
+
+export { passesAdminVisibilityCheck } from "./adminVisibility.js";
