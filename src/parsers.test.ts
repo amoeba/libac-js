@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { GfxObj } from "./dat/file_types/GfxObj.js";
 import { Setup } from "./dat/file_types/Setup.js";
 import BinaryReader from "./BinaryReader.js";
-import { parseMultipartMixed, extractBoundary } from "./multipart.js";
 
 const rdr = function (values: number[]): BinaryReader {
   const buf = Buffer.from(values);
@@ -89,12 +88,6 @@ const fixture = (name: string): Uint8Array =>
 
 const GFXOBJ_FIXTURE = "gfxobj-0x010008AB.bin";
 const SETUP_FIXTURE = "setup-0x02000108.bin";
-const MULTIPART_FIXTURE = "multipart-0x02000108.bin";
-
-// Recorded `Content-Type` for the multipart response. The body fixture does not
-// include headers, so the boundary is asserted/reconstructed here.
-const MULTIPART_CONTENT_TYPE =
-  "multipart/mixed; boundary=acdatservice-02000108-0";
 
 // ─── GfxObj parser tests (from recorded fixture) ─────────────────────
 
@@ -158,46 +151,4 @@ test("Setup default placement frame has one Frame per part", () => {
   const defaultFrame = setup.getDefaultFrames();
   expect(defaultFrame).toBeDefined();
   expect(defaultFrame!.frames.length).toBe(setup.numParts);
-});
-
-// ─── Multipart parser tests (from recorded fixture) ──────────────────
-
-test("parse multipart/mixed response from /setups/:id?include=gfxobjs", () => {
-  const boundary = extractBoundary(MULTIPART_CONTENT_TYPE);
-  expect(boundary).not.toBeNull();
-  expect(boundary).toBe("acdatservice-02000108-0");
-
-  const parts = parseMultipartMixed(fixture(MULTIPART_FIXTURE), boundary!);
-
-  // Should have 2 parts: Setup + 1 GfxObj
-  expect(parts.length).toBe(2);
-
-  // First part should be the Setup (0x02000108)
-  const setupPart = parts.find((p) => p.fileId === 0x02000108);
-  expect(setupPart).toBeDefined();
-  expect(setupPart!.contentType).toBe("application/octet-stream");
-  expect(setupPart!.contentLocation).toBe("/dats/portal/files/0x02000108");
-
-  // Second part should be the GfxObj (0x010008AB)
-  const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab);
-  expect(gfxobjPart).toBeDefined();
-  expect(gfxobjPart!.contentLocation).toBe("/dats/portal/files/0x010008AB");
-});
-
-test("multipart parts parse as valid GfxObj and Setup", () => {
-  const boundary = extractBoundary(MULTIPART_CONTENT_TYPE)!;
-  const parts = parseMultipartMixed(fixture(MULTIPART_FIXTURE), boundary);
-
-  const setupPart = parts.find((p) => p.fileId === 0x02000108)!;
-  const gfxobjPart = parts.find((p) => p.fileId === 0x010008ab)!;
-
-  const setup = Setup.fromBuffer(setupPart.body);
-  const gfxobj = GfxObj.fromBuffer(gfxobjPart.body);
-
-  expect(setup.id).toBe(0x02000108);
-  expect(gfxobj.id).toBe(0x010008ab);
-  expect(setup.parts).toContain(0x010008ab);
-  expect(gfxobj.hasDrawing).toBe(true);
-  expect(gfxobj.polygons.size).toBeGreaterThan(0);
-  expect(gfxobj.vertexArray!.vertices.size).toBeGreaterThan(0);
 });

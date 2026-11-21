@@ -18,6 +18,28 @@ export {
   terrainType,
   terrainScenery,
 } from "./dat/file_types/CellLandblock.js";
+export {
+  blockId,
+  blockIdOfFileId,
+  blockXOf,
+  blockXY,
+  blockYOf,
+  interiorLandcellId,
+  isInteriorLandcellId,
+  isOutdoorLandcellId,
+  LANDBLOCK_INFO_SUFFIX,
+  LANDBLOCK_SUFFIX,
+  landblockFileId,
+  landcellBlockId,
+  landcellCellNumber,
+  LANDCELL_INTERIOR_FIRST,
+  LANDCELL_INTERIOR_LAST,
+  LANDCELL_OUTDOOR_FIRST,
+  LANDCELL_OUTDOOR_LAST,
+  landcellIndex,
+  outdoorLandcellId,
+  outdoorLandcellIdAtWorld,
+} from "./ac/landblock.js";
 export { LandblockInfo } from "./dat/file_types/LandblockInfo.js";
 export { EnvCell, EnvCellFlags } from "./dat/file_types/EnvCell.js";
 export { Environment } from "./dat/file_types/Environment.js";
@@ -101,11 +123,6 @@ export { BuildInfo } from "./dat/types/BuildInfo.js";
 export { CBldPortal } from "./dat/types/CBldPortal.js";
 export { CellPortal } from "./dat/types/CellPortal.js";
 export { CellStruct } from "./dat/types/CellStruct.js";
-export {
-  extractBoundary,
-  parseMultipartMixed,
-} from "./multipart.js";
-export type { MultipartPart } from "./multipart.js";
 export { unpackPackedHashTable } from "./PackedHashTable.js";
 export {
   readItem,
