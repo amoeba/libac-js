@@ -1,3 +1,5 @@
+import type { Frame } from "../dat/types/Frame.js";
+
 /** ACE held-equipment placement rules. Wire schemas and traversal budgets belong
  * to the service codec; these helpers operate on already-decoded native data. */
 export interface HeldPlacement {
@@ -7,7 +9,7 @@ export interface HeldPlacement {
 
 /** Validate a DAT frame used for held equipment. This contextual requirement
  * does not change permissive native Frame parsing for other consumers. */
-export function validateAttachmentFrame(frame: { origin: { x: number; y: number; z: number }; orientation: { x: number; y: number; z: number; w: number } }): void {
+export function validateAttachmentFrame(frame: Frame): void {
   const { origin: p, orientation: q } = frame;
   if (![p.x, p.y, p.z, q.x, q.y, q.z, q.w].every(Number.isFinite) ||
       q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w === 0) {
