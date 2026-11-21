@@ -81,3 +81,9 @@ normalization belongs in the application.
 This release does **not** provide a universal `datFor(id)` helper. Cell and
 portal resource ids overlap, so archive selection, high-resolution fallback,
 URL building and loading policy stay in the application/service adapter.
+
+## 0.3.0 — ACE held-equipment helpers
+
+`heldPlacement` and `validateAttachmentFrame` are available from
+`@amoeba/libac/ace`. They describe ACE equipment placement and frame validity
+for that use, independently of service attachment serialization or wire budgets.

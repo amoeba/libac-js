@@ -50,3 +50,6 @@ export type {
   EquipmentDiagnostic,
   EquipmentSelection,
 } from "./appearanceEquipment.js";
+
+export { heldPlacement, validateAttachmentFrame } from "./heldAttachments.js";
+export type { HeldPlacement } from "./heldAttachments.js";
