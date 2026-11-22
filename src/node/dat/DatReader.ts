@@ -16,7 +16,9 @@ export class DatReader {
     let bufferOffset = 0;
 
     while (size > 0) {
-      if (size < blockSize) {
+      // Four bytes in every sector belong to its next-sector link. Even a
+      // short tail must follow that link when it exceeds the payload capacity.
+      if (size <= blockSize - 4) {
         buffer.set(this.reader.ReadUint8Array(size), bufferOffset);
 
         // We can quit looping now since we've read to the end
