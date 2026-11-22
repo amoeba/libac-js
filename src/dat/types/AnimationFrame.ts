@@ -154,11 +154,13 @@ export function readAnimationHook(reader: BinaryReader): AnimationHook {
 
     case AnimationHookType.ReplaceObject: {
       hook.partIndex = reader.ReadUint16();
-      // DataID field: OR in the GfxObj type tag when the high word is absent
-      // (ACE ReadAsDataIDOfKnownType(0x01000000)).
-      let partId = reader.ReadUint32();
-      if ((partId & 0xffff0000) === 0) partId = (partId | 0x01000000) >>> 0;
-      hook.partId = partId;
+      // ACE ReadAsDataIDOfKnownType: a u16 index, or two u16 words
+      // when bit 15 is set. A raw u32 consumes the next compact hook.
+      const high = reader.ReadUint16();
+      const index = high & 0x8000
+        ? (high & 0x3fff) * 0x10000 + reader.ReadUint16()
+        : high;
+      hook.partId = 0x01000000 + index;
       break;
     }
 

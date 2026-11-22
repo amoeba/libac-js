@@ -28,6 +28,20 @@ function parseAnimation(name: string): { animation: Animation; remaining: number
   return { animation, remaining: reader.remaining };
 }
 
+test("retail Animation 0x0300055b keeps adjacent compact ReplaceObject hooks aligned", () => {
+  const { animation, remaining } = parseAnimation("motion-0x0300055b.bin");
+  expect(animation.id).toBe(0x0300055b);
+  expect(animation.numParts).toBe(1);
+  expect(animation.numFrames).toBe(2);
+  expect(animation.partFrames[0].hooks).toEqual([
+    { type: AnimationHookType.ReplaceObject, direction: 0, partIndex: 0xb401, partId: 0x0100000b },
+    { type: AnimationHookType.ReplaceObject, direction: -1, partIndex: 0xb501, partId: 0x0100000b },
+  ]);
+  expect(animation.partFrames[1].frames).toHaveLength(1);
+  expect(animation.partFrames[1].hooks).toEqual([]);
+  expect(remaining).toBe(0);
+});
+
 // ─── MotionTable ─────────────────────────────────────────────────────
 
 test("MotionTable 0x09000016 (door): defaultStyle, styleDefaults, cycles, links", () => {
@@ -171,7 +185,7 @@ const HOOK_PAYLOADS: Array<{ type: number; write: (out: number[]) => void }> = [
   { type: 2, write: (o) => pushU32(o, 0x22) },
   { type: 3, write: (o) => { pushU32(o, 1); for (let i = 0; i < 6; i++) pushF32(o, i); } },
   { type: 4, write: () => {} },
-  { type: 5, write: (o) => { pushU16(o, 3); pushU32(o, 0x1234); } },
+  { type: 5, write: (o) => { pushU16(o, 3); pushU16(o, 0x1234); } },
   { type: 6, write: (o) => pushU32(o, 0xfffffffe) },
   { type: 7, write: (o) => { pushU32(o, 1); pushF32(o, 1); pushF32(o, 2); pushF32(o, 3); } },
   { type: 8, write: (o) => { pushF32(o, 1); pushF32(o, 2); pushF32(o, 3); } },
@@ -245,30 +259,40 @@ test("unknown hook type throws a descriptive error instead of desyncing", () => 
   );
 });
 
-test("ReplaceObject applies the GfxObj DataID type tag when the high word is absent", () => {
-  const withTag: number[] = [];
-  pushU32(withTag, 1); // one hook
-  pushU32(withTag, AnimationHookType.ReplaceObject);
-  pushU32(withTag, 0);
-  pushU16(withTag, 3);
-  pushU32(withTag, 0x00001234); // no high word -> GfxObj id
+test.each([
+  { words: [0], id: 0x01000000 },
+  { words: [0x7fff], id: 0x01007fff },
+  { words: [0x8000, 0x8000], id: 0x01008000 },
+  { words: [0x8001, 0x2345], id: 0x01012345 },
+  { words: [0xc001, 0x2345], id: 0x01012345 },
+  { words: [0x80ff, 0xffff], id: 0x01ffffff },
+])("ReplaceObject reads packed ID $words and preserves the following hook", ({ words, id }) => {
+  const out: number[] = [];
+  pushU32(out, 2);
+  pushU32(out, AnimationHookType.ReplaceObject);
+  pushU32(out, 0);
+  pushU16(out, 0x1234); // retain the format's full u16 part index
+  for (const word of words) pushU16(out, word);
+  pushU32(out, AnimationHookType.NoDraw);
+  pushU32(out, 0xffffffff);
+  pushU32(out, 1);
+  const reader = new BinaryReader(toExactArrayBuffer(Uint8Array.from(out)));
+  const frame = readAnimationFrame(reader, 0);
+  expect(frame.hooks[0]).toEqual({ type: AnimationHookType.ReplaceObject, direction: 0, partIndex: 0x1234, partId: id });
+  expect(frame.hooks[1]).toEqual({ type: AnimationHookType.NoDraw, direction: -1, value: 1 });
+  expect(reader.remaining).toBe(0);
+});
 
-  const withTagReader = new BinaryReader(toExactArrayBuffer(Uint8Array.from(withTag)));
-  const tagged = readAnimationFrame(withTagReader, 0).hooks[0];
-  expect(tagged.partIndex).toBe(3);
-  expect(tagged.partId).toBe(0x01001234);
-  expect(withTagReader.remaining).toBe(0);
-
-  const withHighWord: number[] = [];
-  pushU32(withHighWord, 1);
-  pushU32(withHighWord, AnimationHookType.ReplaceObject);
-  pushU32(withHighWord, 0);
-  pushU16(withHighWord, 1);
-  pushU32(withHighWord, 0x02000001); // already a typed DataID
-  const highWordReader = new BinaryReader(
-    toExactArrayBuffer(Uint8Array.from(withHighWord)),
-  );
-  expect(readAnimationFrame(highWordReader, 0).hooks[0].partId).toBe(0x02000001);
+test("ReplaceObject rejects truncated compact and extended DataIDs", () => {
+  for (const payload of [[], [0x80], [0x01, 0x80], [0x01, 0x80, 0x23]]) {
+    const out: number[] = [];
+    pushU32(out, 1);
+    pushU32(out, AnimationHookType.ReplaceObject);
+    pushU32(out, 0);
+    pushU16(out, 1);
+    out.push(...payload);
+    expect(() => readAnimationFrame(new BinaryReader(toExactArrayBuffer(Uint8Array.from(out))), 0)).toThrow();
+  }
 });
 
 test("hook payload fields follow ACE AnimationHooks semantics", () => {
