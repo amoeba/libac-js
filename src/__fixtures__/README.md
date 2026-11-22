@@ -16,6 +16,7 @@ tests read these committed bytes instead of fetching at test time.
 | `motion-0x09000003.bin` | `https://dats.treestats.net/dats/portal/files/0x09000003` (portal MotionTable) | 136 | `dcba5d6d9d12f529d6376efa577d6c707f2442275d36cf3c4f4c9381a1f80767` |
 | `motion-0x03000235.bin` | `https://dats.treestats.net/dats/portal/files/0x03000235` (portal ring Animation) | 5296 | `87b907b410713cf4215030bc997985628d1cda59d17a71c9500ad6c8de52753c` |
 | `motion-0x0900019b.bin` | `https://dats.treestats.net/dats/portal/files/0x0900019b` (fountain MotionTable) | 1008 | `042ecebe8f692ecbaa1c0c416d0f2cde07ae6e9a1f5aec7399e699c910e3789d` |
+| `motion-0x0300055b.bin` | Local retail portal DAT (SHA-256 `dc6e500ba22e6b186db7171e3f3345238b6444c85d798adc85e550973b8d12e4`), two adjacent compact ReplaceObject hooks | 104 | `6b48b745f57424417ca565ec2845d7d97352b49c58036268c949fe98f880d6d5` |
 | `environment-0x0d000104.bin` | ac-noclip `test/fixtures/meetinghall/portal/files/0x0d000104` (Meeting Hall Environment with Cell BSP trees) | 9532 | `928b93972dc60ed6284996c6e2199a7d517fbd43c70b93f4586e121bb81789ce` |
 
 The multipart response fixture and transport regression moved to
